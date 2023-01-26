@@ -171,6 +171,7 @@ class CruiseStateManager:
           self.enabled = True
           self.cruise_auto = True 	# CRZ AUTO-SET by Tenesi
           v_cruise_kph = clip(round(self.speed * CV.MS_TO_KPH, 1), V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)
+          v_cruise_kph = clip(v_cruise_kph, round(CS.vEgoCluster * CV.MS_TO_KPH, 1), V_CRUISE_MAX)
 
     if btn == ButtonType.gapAdjustCruise and not self.btn_long_pressed:
       self.gapAdjust -= 1

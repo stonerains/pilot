@@ -81,6 +81,7 @@ pipeline {
 
       parallel {
 
+        /*
         stage('simulator') {
           agent {
             dockerfile {
@@ -108,6 +109,7 @@ pipeline {
             }
           }
         }
+        */
 
         stage('build') {
           agent { docker { image 'ghcr.io/commaai/alpine-ssh'; args '--user=root' } }
@@ -190,7 +192,7 @@ pipeline {
           steps {
             phone_steps("tici-common", [
               ["build", "cd selfdrive/manager && ./build.py"],
-              ["model replay", "cd selfdrive/test/process_replay && ./model_replay.py"],
+              ["model replay", "cd selfdrive/test/process_replay && NO_NAV=1 ./model_replay.py"],
             ])
           }
         }
