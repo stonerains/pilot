@@ -2,6 +2,7 @@ from cereal import log
 from common.conversions import Conversions as CV
 from common.realtime import DT_MDL
 from common.params import Params
+from common.numpy_fast import interp
 
 AUTO_LCA_START_TIME = 0.5
 LaneChangeState = log.LateralPlan.LaneChangeState
@@ -52,8 +53,8 @@ class DesireHelper:
     one_blinker = carstate.leftBlinker != carstate.rightBlinker
     below_lane_change_speed = v_ego < LANE_CHANGE_SPEED_MIN
 
-    left_road_edge = -md.roadEdges[0].y[0]
-    right_road_edge = md.roadEdges[1].y[0]
+    left_road_edge = -interp(5.0, md.roadEdges[0].x, md.roadEdges[0].y)
+    right_road_edge = interp(5.0, md.roadEdges[1].x, md.roadEdges[1].y)
 
     if (not lateral_active) or (self.lane_change_timer > LANE_CHANGE_TIME_MAX) or (not one_blinker) or (not self.lane_change_enabled):
       self.lane_change_state = LaneChangeState.off
