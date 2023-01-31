@@ -8,6 +8,7 @@ from common.conversions import Conversions as CV
 from selfdrive.car import dbc_dict
 from selfdrive.car.docs_definitions import CarFootnote, CarInfo, Column, Harness
 from selfdrive.car.fw_query_definitions import FwQueryConfig, Request, p16
+from common.params import Params
 
 Ecu = car.CarParams.Ecu
 
@@ -51,13 +52,18 @@ class CarControllerParams:
       self.STEER_DELTA_DOWN = 3
 
     # Default for most HKG
-    else:
+    elif Params().get_bool('AggressiveSteering'):
       self.STEER_MAX = 409 if vEgoRaw < 17. else 384
       self.STEER_DRIVER_ALLOWANCE = 350
       self.STEER_THRESHOLD = 350
-      self.STEER_DELTA_UP = 7 if vEgoRaw < 17. else 3
-      self.STEER_DELTA_DOWN = 8 if vEgoRaw < 17. else 7
-
+      self.STEER_DELTA_UP = 9 if vEgoRaw < 17. else 3
+      self.STEER_DELTA_DOWN = 9 if vEgoRaw < 17. else 7
+    else:
+      self.STEER_MAX = 409
+      self.STEER_DRIVER_ALLOWANCE = 50
+      self.STEER_THRESHOLD = 150
+      self.STEER_DELTA_UP = 3
+      self.STEER_DELTA_DOWN = 7
 
 class HyundaiFlags(IntFlag):
   CANFD_HDA2 = 1

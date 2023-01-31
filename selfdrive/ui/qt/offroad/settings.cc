@@ -592,7 +592,13 @@ CommunityPanel::CommunityPanel(SettingsWindow *parent) : ListWidget(parent) {
       "ShowTurnSignal",
       tr("Show Turnsignal"),
       "",
-      "../assets/offroad/icon_shell.png",
+      "../assets/offroad/icon_openpilot.png",
+    },
+    {
+      "AggressiveSteering",
+      tr("Aggressive Steering"),
+      tr("more aggressive steering performance"),
+      "../assets/offroad/icon_openpilot.png",
     },
   };
 
