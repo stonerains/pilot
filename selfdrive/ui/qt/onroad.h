@@ -87,8 +87,6 @@ protected:
 
   uint64_t last_update_params;
 
-  ExperimentalButton *experimental_btn;
-
   // neokii
   QPixmap ic_brake;
   QPixmap ic_autohold_warning;
@@ -134,6 +132,7 @@ private:
   QColor bg = bg_colors[STATUS_DISENGAGED];
   QWidget *map = nullptr;
   QHBoxLayout* split;
+  ExperimentalButton *experimental_btn;
 
   // neokii
 private:

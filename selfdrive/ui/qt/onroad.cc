@@ -1287,7 +1287,7 @@ void AnnotatedCameraWidget::drawGpsStatus(QPainter &p) {
   int w = 120;
   int h = 100;
   int x = width() - w - 30;
-  int y = 30;
+  int y = 200;
 
   p.save();
 
