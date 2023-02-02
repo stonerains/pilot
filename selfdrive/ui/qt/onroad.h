@@ -1,15 +1,19 @@
 #pragma once
 
+#include <QPushButton>
 #include <QStackedLayout>
 #include <QWidget>
 
 #include "common/util.h"
-#include "selfdrive/ui/qt/widgets/cameraview.h"
 #include "selfdrive/ui/ui.h"
+#include "selfdrive/ui/qt/widgets/cameraview.h"
 
 #include <QTimer>
 #include <QMap>
 #include "selfdrive/ui/qt/screenrecorder/screenrecorder.h"
+
+const int btn_size = 192;
+const int img_size = (btn_size / 4) * 3;
 
 
 // ***** onroad widgets *****
@@ -27,6 +31,21 @@ protected:
 private:
   QColor bg;
   Alert alert = {};
+};
+
+class ExperimentalButton : public QPushButton {
+  Q_OBJECT
+
+public:
+  explicit ExperimentalButton(QWidget *parent = 0);
+  void updateState(const UIState &s);
+
+private:
+  void paintEvent(QPaintEvent *event) override;
+
+  Params params;
+  QPixmap engage_img;
+  QPixmap experimental_img;
 };
 
 // container window for the NVG UI
@@ -66,12 +85,9 @@ protected:
   void drawTextWithColor(QPainter &p, int x, int y, const QString &text, QColor& color);
   void paintEvent(QPaintEvent *event) override;
 
-  const int radius = 192;
-  const int img_size = (radius / 2) * 1.5;
-
   uint64_t last_update_params;
 
-  QPixmap experimental_img;
+  ExperimentalButton *experimental_btn;
 
   // neokii
   QPixmap ic_brake;
