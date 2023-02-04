@@ -6,14 +6,16 @@
 
 #include "common/util.h"
 #include "selfdrive/ui/ui.h"
+
 #include "selfdrive/ui/qt/widgets/cameraview.h"
+
+
+const int btn_size = 192;
+const int img_size = (btn_size / 4) * 3;
 
 #include <QTimer>
 #include <QMap>
 #include "selfdrive/ui/qt/screenrecorder/screenrecorder.h"
-
-const int btn_size = 192;
-const int img_size = (btn_size / 4) * 3;
 
 
 // ***** onroad widgets *****
@@ -71,6 +73,8 @@ protected:
   inline QColor cyanColor(int alpha = 255) { return QColor(0, 255, 255, alpha); }
   inline QColor blackColor(int alpha = 255) { return QColor(0, 0, 0, alpha); }
 
+  ExperimentalButton *experimental_btn;
+
   double prev_draw_t = 0;
   FirstOrderFilter fps_filter;
   std::unique_ptr<PubMaster> pm;
@@ -84,6 +88,9 @@ protected:
   void drawText2(QPainter &p, int x, int y, int flags, const QString &text, const QColor& color);
   void drawTextWithColor(QPainter &p, int x, int y, const QString &text, QColor& color);
   void paintEvent(QPaintEvent *event) override;
+
+  const int radius = 192;
+  const int img_size = (radius / 2) * 1.5;
 
   uint64_t last_update_params;
 
@@ -132,7 +139,6 @@ private:
   QColor bg = bg_colors[STATUS_DISENGAGED];
   QWidget *map = nullptr;
   QHBoxLayout* split;
-  ExperimentalButton *experimental_btn;
 
   // neokii
 private:
