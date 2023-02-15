@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-import unittest
 import numpy as np
-from common.params import Params
-
+from parameterized import parameterized_class
+import unittest
 
 from selfdrive.controls.lib.drive_helpers import VCruiseHelper, V_CRUISE_MIN, V_CRUISE_MAX, V_CRUISE_INITIAL, IMPERIAL_INCREMENT
 from cereal import car
 from common.conversions import Conversions as CV
 from selfdrive.test.longitudinal_maneuvers.maneuver import Maneuver
 
-def run_cruise_simulation(cruise, t_end=20.):
+ButtonEvent = car.CarState.ButtonEvent
+ButtonType = car.CarState.ButtonEvent.Type
+
+
+def run_cruise_simulation(cruise, e2e, t_end=20.):
   man = Maneuver(
     '',
     duration=t_end,
@@ -19,22 +22,21 @@ def run_cruise_simulation(cruise, t_end=20.):
     cruise_values=[cruise],
     prob_lead_values=[0.0],
     breakpoints=[0.],
+    e2e=e2e,
   )
   valid, output = man.evaluate()
   assert valid
-  return output[-1,3]
+  return output[-1, 3]
 
 
 class TestCruiseSpeed(unittest.TestCase):
   def test_cruise_speed(self):
-    params = Params()
     for e2e in [False, True]:
-      params.put_bool("EndToEndLong", e2e)
       for speed in np.arange(5, 40, 5):
         print(f'Testing {speed} m/s')
         cruise_speed = float(speed)
 
-        simulation_steady_state = run_cruise_simulation(cruise_speed)
+        simulation_steady_state = run_cruise_simulation(cruise_speed, e2e)
         self.assertAlmostEqual(simulation_steady_state, cruise_speed, delta=.01, msg=f'Did not reach {speed} m/s')
 
 

@@ -181,7 +181,7 @@ class CarController:
       can_sends.append(hyundaican.create_lkas11(self.packer, self.frame, self.car_fingerprint, apply_steer, lat_active,
                                                 torque_fault, CS.lkas11, sys_warning, sys_state, CC.enabled,
                                                 hud_control.leftLaneVisible, hud_control.rightLaneVisible,
-                                                left_lane_warning, right_lane_warning, self.ldws_opt))
+                                                left_lane_warning, right_lane_warning, self.ldws_opt, self.CP))
 
       if not self.CP.openpilotLongitudinalControl or CruiseStateManager.instance().is_resume_spam_allowed(self.CP):
         if CC.cruiseControl.cancel:
@@ -237,7 +237,7 @@ class CarController:
         can_sends.append(hyundaican.create_frt_radar_opt(self.packer))
 
       # 20 Hz LFA MFA message
-      if self.frame % 5 == 0 and self.car_fingerprint in FEATURES["send_lfa_mfa"]:
+      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value:
         can_sends.append(hyundaican.create_lfahda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active()))
       elif self.frame % 5 == 0 and self.car_fingerprint in FEATURES["has_hda"]:
         can_sends.append(hyundaiexcan.create_hda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active(), CS, hud_control.leftLaneVisible, hud_control.rightLaneVisible))

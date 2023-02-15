@@ -73,7 +73,7 @@ protected:
   inline QColor cyanColor(int alpha = 255) { return QColor(0, 255, 255, alpha); }
   inline QColor blackColor(int alpha = 255) { return QColor(0, 0, 0, alpha); }
 
-  ExperimentalButton *experimental_btn;
+  //ExperimentalButton *experimental_btn;
   bool dmActive = false;
   bool hideDM = false;
   QPixmap dm_img;

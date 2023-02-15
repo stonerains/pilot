@@ -563,7 +563,7 @@ class Controls:
           else:
             self.state = State.enabled
           self.current_alert_types.append(ET.ENABLE)
-          self.v_cruise_helper.initialize_v_cruise(CS, self.experimental_mode)
+          #self.v_cruise_helper.initialize_v_cruise(CS, self.experimental_mode)
 
     # Check if openpilot is engaged and actuators are enabled
     self.enabled = self.state in ENABLED_STATES
@@ -772,7 +772,6 @@ class Controls:
         self.v_cruise_helper.v_cruise_cluster_kph = v
 
       self.speed_controller.update_message(self, CC, CS)
-
       self.pm.send('sendcan', can_list_to_can_capnp(can_sends, msgtype='sendcan', valid=CS.canValid))
       CC.actuatorsOutput = self.last_actuators
       if self.CP.steerControlType == car.CarParams.SteerControlType.angle:
