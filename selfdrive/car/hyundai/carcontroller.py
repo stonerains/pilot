@@ -237,7 +237,7 @@ class CarController:
         can_sends.append(hyundaican.create_frt_radar_opt(self.packer))
 
       # 20 Hz LFA MFA message
-      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value:
+      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value and not self.car_fingerprint in FEATURES["has_hda"]:
         can_sends.append(hyundaican.create_lfahda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active()))
       elif self.frame % 5 == 0 and self.car_fingerprint in FEATURES["has_hda"]:
         can_sends.append(hyundaiexcan.create_hda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active(), CS, hud_control.leftLaneVisible, hud_control.rightLaneVisible))
