@@ -25,10 +25,10 @@ def get_params(candidate, ret):
     tire_stiffness_factor = 0.8
     ret.centerToFront = ret.wheelbase * 0.385
   elif candidate == CAR.GENESIS_EQ900:
-    ret.mass = 2300
-    ret.wheelbase = 3.3
+    ret.mass = 2200
+    ret.wheelbase = 3.4
     ret.steerRatio = 16.0
-    ret.steerActuatorDelay = 0.45
+    ret.steerActuatorDelay = 0.1
   elif candidate == CAR.GENESIS_EQ900_L:
     ret.mass = 2290
     ret.wheelbase = 3.45

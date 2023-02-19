@@ -15,7 +15,7 @@ from selfdrive.controls.neokii.navi_controller import SpeedLimiter
 from selfdrive.controls.ntune import ntune_common_get
 
 SYNC_MARGIN = 3.
-CREEP_SPEED = 2.3
+CREEP_SPEED = 2.
 
 
 MIN_CURVE_SPEED = 32. * CV.KPH_TO_MS
