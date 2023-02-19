@@ -52,14 +52,14 @@ class CarControllerParams:
       self.STEER_DELTA_DOWN = 3
 
     # Default for most HKG
-    elif Params().get_bool('AggressiveSteering'):
-      self.STEER_MAX = 409 if vEgoRaw < 17. else 384
-      self.STEER_DRIVER_ALLOWANCE = 350
-      self.STEER_THRESHOLD = 350
-      self.STEER_DELTA_UP = 9 if vEgoRaw < 17. else 3
-      self.STEER_DELTA_DOWN = 9 if vEgoRaw < 17. else 7
-    else:
+    elif Params().get_bool('AggressiveSteering') and vEgoRaw < 17.:
       self.STEER_MAX = 409
+      self.STEER_DRIVER_ALLOWANCE = 200
+      self.STEER_THRESHOLD = 250
+      self.STEER_DELTA_UP = 6
+      self.STEER_DELTA_DOWN = 10
+    else:
+      self.STEER_MAX = 384
       self.STEER_DRIVER_ALLOWANCE = 50
       self.STEER_THRESHOLD = 150
       self.STEER_DELTA_UP = 3
