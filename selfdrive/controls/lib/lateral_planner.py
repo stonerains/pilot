@@ -23,7 +23,7 @@ LATERAL_JERK_COST = 0.04
 # when it does not cause bad jerk.
 # TODO this cost should be lowered when low
 # speed lateral control is stable on all cars
-STEERING_RATE_COST = 0.0
+STEERING_RATE_COST = 700.0
 
 
 class LateralPlanner:
@@ -49,9 +49,6 @@ class LateralPlanner:
 
     self.lat_mpc = LateralMpc()
     self.reset_mpc(np.zeros(4))
-
-    self.steering_rate_cost = STEERING_RATE_COST
-    self.lateral_accel_cost = LATERAL_ACCEL_COST
 
   def reset_mpc(self, x0=np.zeros(4)):
     self.x0 = x0
@@ -96,14 +93,12 @@ class LateralPlanner:
 
     d_path_xyz[:, 1] += ntune_common_get('pathOffset')
 
-    self.lateral_accel_cost = interp(self.v_ego * 3.6, [0, 60], [1.0, 0])
-    self.steering_rate_cost = interp(self.v_ego * 3.6, [0, 60], [8, 700])
+    self.lat_mpc.set_weights(PATH_COST,
+                             LATERAL_MOTION_COST,
+                             LATERAL_ACCEL_COST, LATERAL_JERK_COST,
+                             interp(self.v_ego, [2., 10.], [STEERING_RATE_COST, STEERING_RATE_COST/3.]))
 
-    self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,
-                             LATERAL_JERK_COST, self.lateral_accel_cost,
-                             self.steering_rate_cost)
-
-    y_pts = self.path_xyz[:LAT_MPC_N+1, 1]
+    y_pts = d_path_xyz[:LAT_MPC_N+1, 1]
     heading_pts = self.plan_yaw[:LAT_MPC_N+1]
     yaw_rate_pts = self.plan_yaw_rate[:LAT_MPC_N+1]
     self.y_pts = y_pts
