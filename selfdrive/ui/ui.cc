@@ -60,7 +60,6 @@ void update_leads(UIState *s, const cereal::RadarState::Reader &radar_state, con
 void update_line_data(const UIState *s, const cereal::XYZTData::Reader &line,
                       float y_off, float z_off, QPolygonF *pvd, int max_idx, bool allow_invert=true) {
   const auto line_x = line.getX(), line_y = line.getY(), line_z = line.getZ();
-
   QPolygonF left_points, right_points;
   left_points.reserve(max_idx + 1);
   right_points.reserve(max_idx + 1);
@@ -83,7 +82,7 @@ void update_line_data(const UIState *s, const cereal::XYZTData::Reader &line,
   *pvd = left_points + right_points;
 }
 
-void update_model(UIState *s, 
+void update_model(UIState *s,
                   const cereal::ModelDataV2::Reader &model,
                   const cereal::UiPlan::Reader &plan) {
   UIScene &scene = s->scene;
@@ -258,8 +257,8 @@ UIState::UIState(QObject *parent) : QObject(parent) {
     "modelV2", "controlsState", "liveCalibration", "radarState", "deviceState", "roadCameraState",
     "pandaStates", "carParams", "driverMonitoringState", "carState", "liveLocationKalman", "driverStateV2",
     "wideRoadCameraState", "managerState", "navInstruction", "navRoute", "gnssMeasurements",
-    "gpsLocationExternal", "carControl", "liveParameters", "liveTorqueParameters", "naviData",
     "uiPlan",
+    "gpsLocationExternal", "carControl", "liveParameters", "liveTorqueParameters", "naviData",
   });
 
   Params params;

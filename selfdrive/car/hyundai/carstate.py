@@ -549,7 +549,6 @@ class CarState(CarStateBase):
         ("CR_VSM_Alive", "SCC12"),
         ("CR_VSM_ChkSum", "SCC12"),
       ]
-
       checks += [
         ("SCC11", 50),
         ("SCC12", 50),

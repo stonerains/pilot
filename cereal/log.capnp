@@ -841,7 +841,6 @@ struct ModelDataV2 {
   # Model perceived motion
   temporalPose @21 :Pose;
 
-
   struct LeadDataV2 {
     prob @0 :Float32; # probability that car is your lead at time t
     t @1 :Float32;
@@ -999,6 +998,7 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
     y @1 :List(Float32);
   }
 }
+
 struct UiPlan {
   position @0 :XYZTData;
 }
@@ -1023,7 +1023,7 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   curvatureRates @28 :List(Float32);
 
   solverExecutionTime @30 :Float32;
-  
+
   autoLaneChangeEnabled @32 :Bool;
   autoLaneChangeTimer @33 :Int8;
 
@@ -2141,7 +2141,7 @@ struct Event {
     # UI services
     userFlag @93 :UserFlag;
     uiDebug @102 :UIDebug;
-
+    
     # neokii
     naviData @107 :NaviData;
 
