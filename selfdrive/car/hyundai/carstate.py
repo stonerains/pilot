@@ -217,12 +217,9 @@ class CarState(CarStateBase):
     if self.CP.hasNav:
       ret.navSpeedLimit = cp.vl["Navi_HU"]["SpeedLim_Nav_Clu"]
 
-    if self.CP.openpilotLongitudinalControl and self.CP.sccBus == 2:
-      CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT, ret.cruiseState.available, False)
-
-    #if self.CP.openpilotLongitudinalControl and CruiseStateManager.instance().cruise_state_control:
-    #  available = ret.cruiseState.available if self.CP.sccBus == 2 else -1
-    #  CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT, available)
+    if self.CP.openpilotLongitudinalControl and CruiseStateManager.instance().cruise_state_control:
+      available = ret.cruiseState.available if self.CP.sccBus == 2 else -1
+      CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT, available)
 
     # for activate HDA
     self.hda_mfc = cp_cam.vl["LFAHDA_MFC"]
@@ -308,8 +305,8 @@ class CarState(CarStateBase):
     ret.brakeLights = ret.brakePressed
 
     # TODO
-    #CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT,
-    #        cruise_state_control=self.CP.openpilotLongitudinalControl and CruiseStateManager.instance().cruise_state_control)
+    CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT,
+            cruise_state_control=self.CP.openpilotLongitudinalControl and CruiseStateManager.instance().cruise_state_control)
 
     return ret
 
