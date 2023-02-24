@@ -6,7 +6,7 @@ from common.numpy_fast import clip, interp
 from common.realtime import DT_CTRL
 from opendbc.can.packer import CANPacker
 from selfdrive.car import apply_std_steer_torque_limits
-from selfdrive.car.hyundai import hyundaicanfd, hyundaican, hyundaiexcan
+from selfdrive.car.hyundai import hyundaicanfd, hyundaican, hyundaican_community
 from selfdrive.car.hyundai.values import HyundaiFlags, Buttons, CarControllerParams, CANFD_CAR, CAR, \
   LEGACY_SAFETY_MODE_CAR, FEATURES
 from selfdrive.car.interfaces import ACCEL_MAX, ACCEL_MIN
@@ -198,7 +198,7 @@ class CarController:
                 self.last_button_frame = self.frame
 
       if self.CP.carFingerprint in FEATURES["send_mdps12"]:  # send mdps12 to LKAS to prevent LKAS error
-        can_sends.append(hyundaiexcan.create_mdps12(self.packer, self.frame, CS.mdps12))
+        can_sends.append(hyundaican_community.create_mdps12(self.packer, self.frame, CS.mdps12))
 
       if self.frame % 2 == 0 and self.CP.openpilotLongitudinalControl:
         # TODO: unclear if this is needed
@@ -222,7 +222,7 @@ class CarController:
                                                           CC.cruiseControl.override, CS, stock_cam))
         else:
           activated_hda = SpeedLimiter.instance().get_active()
-          can_sends.extend(hyundaiexcan.create_acc_commands(self.packer, CC.enabled, accel, jerk, int(self.frame / 2),
+          can_sends.extend(hyundaican_community.create_acc_commands(self.packer, CC.enabled, accel, jerk, int(self.frame / 2),
                                                           hud_control.leadVisible, set_speed_in_units, stopping,
                                                           CC.cruiseControl.override, CS, stock_cam, activated_hda))
 
@@ -231,7 +231,7 @@ class CarController:
         if self.CP.sccBus == 0:
           can_sends.extend(hyundaican.create_acc_opt(self.packer))
         elif CS.scc13 is not None:
-          can_sends.append(hyundaiexcan.create_acc_opt(self.packer, CS))
+          can_sends.append(hyundaican_community.create_acc_opt(self.packer, CS))
 
       # 2 Hz front radar options
       if self.frame % 50 == 0 and self.CP.openpilotLongitudinalControl and self.CP.sccBus == 0:
@@ -241,7 +241,7 @@ class CarController:
       if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value and not self.car_fingerprint in FEATURES["has_hda"]:
         can_sends.append(hyundaican.create_lfahda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active()))
       elif self.frame % 5 == 0 and self.car_fingerprint in FEATURES["has_hda"]:
-        can_sends.append(hyundaiexcan.create_hda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active(), CS, hud_control.leftLaneVisible, hud_control.rightLaneVisible))
+        can_sends.append(hyundaican_community.create_hda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active(), CS, hud_control.leftLaneVisible, hud_control.rightLaneVisible))
 
     CC.applyAccel = accel
 

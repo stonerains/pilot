@@ -97,6 +97,7 @@ class CruiseStateManager:
     self.prev_brake_pressed = CS.brakePressed
 
     CS.cruiseState.available = self.available
+    CS.cruiseState.gapAdjust = self.gapAdjust
 
     # CRZ AUTO-SET by Tenesi
     ascc_auto_set = (CS.vEgoCluster * CV.MS_TO_KPH > 20) and CS.gasPressed
@@ -108,7 +109,7 @@ class CruiseStateManager:
       CS.cruiseState.enabled = self.enabled
       CS.cruiseState.standstill = False
       CS.cruiseState.speed = self.speed
-      CS.cruiseState.gapAdjust = self.gapAdjust
+      #CS.cruiseState.gapAdjust = self.gapAdjust
 
   def update_buttons(self):
     if self.button_events is None:
