@@ -207,7 +207,7 @@ static int hyundai_rx_hook(CANPacket_t *to_push) {
 
   if (valid && (bus == 0)) {
     if (addr == 593) {
-      int torque_driver_new = ((GET_BYTES_04(to_push) & 0x7ffU) * 0.79) - 808; // scale down new driver torque signal to match previous one
+      int torque_driver_new = ((int)(GET_BYTES_04(to_push) & 0x7ffU) - 982) * 0.4;
       // update array of samples
       update_sample(&torque_driver, torque_driver_new);
     }
@@ -303,16 +303,16 @@ static int hyundai_tx_hook(CANPacket_t *to_send) {
     }
   }
 
-// LKA STEER: safety check
-//  if (addr == 832) {
-//    int desired_torque = ((GET_BYTES_04(to_send) >> 16) & 0x7ffU) - 1024U;
-//    bool steer_req = GET_BIT(to_send, 27U) != 0U;
-//
-//    const SteeringLimits limits = hyundai_alt_limits ? HYUNDAI_STEERING_LIMITS_ALT : HYUNDAI_STEERING_LIMITS;
-//    if (steer_torque_cmd_checks(desired_torque, steer_req, limits)) {
-//      tx = 0;
-//    }
-//  }
+  // LKA STEER: safety check
+  if (addr == 832) {
+    int desired_torque = ((GET_BYTES_04(to_send) >> 16) & 0x7ffU) - 1024U;
+    bool steer_req = GET_BIT(to_send, 27U) != 0U;
+
+    const SteeringLimits limits = hyundai_alt_limits ? HYUNDAI_STEERING_LIMITS_ALT : HYUNDAI_STEERING_LIMITS;
+    if (steer_torque_cmd_checks(desired_torque, steer_req, limits)) {
+      tx = 0;
+    }
+  }
 
   // UDS: Only tester present ("\x02\x3E\x80\x00\x00\x00\x00\x00") allowed on diagnostics address
   if (addr == 2000) {
