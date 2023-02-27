@@ -5,7 +5,7 @@ from common.conversions import Conversions as CV
 from common.numpy_fast import clip, interp
 from common.realtime import DT_CTRL
 from opendbc.can.packer import CANPacker
-from selfdrive.car import apply_std_steer_torque_limits
+from selfdrive.car import apply_driver_steer_torque_limits
 from selfdrive.car.hyundai import hyundaicanfd, hyundaican, hyundaican_community
 from selfdrive.car.hyundai.values import HyundaiFlags, Buttons, CarControllerParams, CANFD_CAR, CAR, \
   LEGACY_SAFETY_MODE_CAR, FEATURES
@@ -81,7 +81,7 @@ class CarController:
     steer = actuators.steer
     self.params = CarControllerParams(self.CP, CS.out.vEgoRaw)
     new_steer = int(round(steer * self.params.STEER_MAX))
-    apply_steer = apply_std_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.params)
+    apply_steer = apply_driver_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.params)
     apply_steer = clip(apply_steer, -self.params.STEER_MAX, self.params.STEER_MAX)
 
     if not CC.latActive:
