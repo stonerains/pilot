@@ -22,7 +22,24 @@ def get_log(segs=range(0)):
   logs = []
   for i in segs:
     logs.extend(LogReader(get_url("4cf7a6ad03080c90|2021-09-29--13-46-36", i)))
-  return [m for m in logs if m.which() == 'ubloxGnss']
+
+  all_logs = [m for m in logs if m.which() == 'ubloxGnss']
+  low_gnss = []
+  for m in all_logs:
+    if m.ubloxGnss.which() != 'measurementReport':
+      continue
+
+    MAX_MEAS = 7
+    if m.ubloxGnss.measurementReport.numMeas > MAX_MEAS:
+      mb = m.as_builder()
+      mb.ubloxGnss.measurementReport.numMeas = MAX_MEAS
+      mb.ubloxGnss.measurementReport.measurements = list(m.ubloxGnss.measurementReport.measurements)[:MAX_MEAS]
+      mb.ubloxGnss.measurementReport.measurements[0].pseudorange += 1000
+      low_gnss.append(mb.as_reader())
+    else:
+      low_gnss.append(m)
+
+  return all_logs, low_gnss
 
 
 def verify_messages(lr, laikad, return_one_success=False):
@@ -59,8 +76,9 @@ class TestLaikad(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls):
-    logs = get_log(range(1))
+    logs, low_gnss = get_log(range(1))
     cls.logs = logs
+    cls.low_gnss = low_gnss
     first_gps_time = get_first_gps_time(logs)
     cls.first_gps_time = first_gps_time
 
@@ -142,7 +160,7 @@ class TestLaikad(unittest.TestCase):
     laikad = Laikad(auto_update=True, valid_ephem_types=EphemerisType.ULTRA_RAPID_ORBIT)
     correct_msgs = verify_messages(self.logs, laikad)
 
-    correct_msgs_expected = 554
+    correct_msgs_expected = 559
     self.assertEqual(correct_msgs_expected, len(correct_msgs))
     self.assertEqual(correct_msgs_expected, len([m for m in correct_msgs if m.gnssMeasurements.positionECEF.valid]))
 
@@ -162,7 +180,7 @@ class TestLaikad(unittest.TestCase):
     laikad = Laikad(auto_update=True, valid_ephem_types=EphemerisType.NAV)
     # Disable fetch_orbits to test NAV only
     correct_msgs = verify_messages(self.logs, laikad)
-    correct_msgs_expected = 554
+    correct_msgs_expected = 559
     self.assertEqual(correct_msgs_expected, len(correct_msgs))
     self.assertEqual(correct_msgs_expected, len([m for m in correct_msgs if m.gnssMeasurements.positionECEF.valid]))
 
@@ -177,8 +195,8 @@ class TestLaikad(unittest.TestCase):
     downloader_mock.side_effect = DownloadFailed
     laikad = Laikad(auto_update=False)
     correct_msgs = verify_messages(self.logs, laikad)
-    self.assertEqual(0, len(correct_msgs))
-    self.assertEqual(0, len([m for m in correct_msgs if m.gnssMeasurements.positionECEF.valid]))
+    self.assertEqual(255, len(correct_msgs))
+    self.assertEqual(255, len([m for m in correct_msgs if m.gnssMeasurements.positionECEF.valid]))
 
   def test_laika_get_orbits(self):
     laikad = Laikad(auto_update=False)
@@ -253,6 +271,18 @@ class TestLaikad(unittest.TestCase):
       self.assertIsNotNone(msg)
       # Verify orbit data is not downloaded
       mock_method.assert_not_called()
+
+  def test_low_gnss_meas(self):
+    cnt = 0
+    laikad = Laikad()
+    for m in self.low_gnss:
+      msg = laikad.process_gnss_msg(m.ubloxGnss, m.logMonoTime, block=True)
+      if msg is None:
+        continue
+      gm = msg.gnssMeasurements
+      if len(gm.correctedMeasurements) != 0 and gm.positionECEF.valid:
+        cnt += 1
+    self.assertEqual(cnt, 559)
 
   def dict_has_values(self, dct):
     self.assertGreater(len(dct), 0)
