@@ -9,7 +9,7 @@ from .ephemeris import Ephemeris, EphemerisType, GLONASSEphemeris, GPSEphemeris,
 from .downloader import download_orbits_gps, download_orbits_russia_src, download_nav, download_ionex, download_dcb, download_prediction_orbits_russia_src
 from .downloader import download_cors_station
 from .trop import saast
-from .iono import IonexMap, parse_ionex
+from .iono import IonexMap, parse_ionex, get_slant_delay
 from .dcb import DCB, parse_dcbs
 from .gps_time import GPSTime
 from .dgps import get_closest_station_names, parse_dgps
@@ -98,6 +98,9 @@ class AstroDog:
         cache[prn] = obj
       result[prn] = obj
     return result
+
+  def get_all_ephem_prns(self):
+    return set(self.orbits.keys()).union(set(self.navs.keys())).union(set(self.qcom_polys.keys()))
 
   def get_navs(self, time):
     if time not in self.navs_fetched_times:
@@ -270,7 +273,7 @@ class AstroDog:
       return eph.get_tgd()
     return None
 
-  def get_sat_info(self, prn, time):
+  def get_eph(self, prn, time):
     if get_constellation(prn) not in self.valid_const:
       return None
     eph = None
@@ -280,6 +283,10 @@ class AstroDog:
       eph = self.get_nav(prn, time)
     if not eph and self.use_qcom_poly:
       eph = self.get_qcom_poly(prn, time)
+    return eph
+
+  def get_sat_info(self, prn, time):
+    eph = self.get_eph(prn, time)
     if eph:
       return eph.get_sat_info(time)
     return None
@@ -345,7 +352,11 @@ class AstroDog:
     # When using internet we expect all data or return None
     if self.auto_update and (ionex is None or dcb is None or freq is None):
       return None
-    iono_delay = ionex.get_delay(rcv_pos, az, el, sat_pos, time, freq) if ionex is not None else 0.
+    if ionex is not None:
+      iono_delay = ionex.get_delay(rcv_pos, az, el, sat_pos, time, freq)
+    else:
+      # 5m vertical delay is a good default
+      iono_delay = get_slant_delay(rcv_pos, az, el, sat_pos, time, freq, vertical_delay=5.0)
     trop_delay = saast(rcv_pos, el)
     code_bias = dcb.get_delay(signal) if dcb is not None else 0.
     return iono_delay + trop_delay + code_bias
