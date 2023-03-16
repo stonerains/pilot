@@ -27,7 +27,7 @@ from selfdrive.locationd.models.gnss_kf import States as GStates
 from system.swaglog import cloudlog
 
 MAX_TIME_GAP = 10
-EPHEMERIS_CACHE = 'LaikadEphemerisV2'
+EPHEMERIS_CACHE = 'LaikadEphemerisV3'
 DOWNLOADS_CACHE_FOLDER = "/tmp/comma_download_cache/"
 CACHE_VERSION = 0.2
 POS_FIX_RESIDUAL_THRESHOLD = 100.0
@@ -35,7 +35,7 @@ POS_FIX_RESIDUAL_THRESHOLD = 100.0
 
 class Laikad:
   def __init__(self, valid_const=("GPS", "GLONASS"), auto_fetch_navs=True, auto_update=False,
-               valid_ephem_types=(EphemerisType.NAV,),
+               valid_ephem_types=(EphemerisType.NAV, EphemerisType.QCOM_POLY),
                save_ephemeris=False, use_qcom=False):
     """
     valid_const: GNSS constellation which can be used
@@ -158,7 +158,7 @@ class Laikad:
       if self.gps_week is None:
         return
       ephem = parse_qcom_ephem(gnss_msg.drSvPoly, self.gps_week)
-      self.astro_dog.add_orbits({ephem.prn: [ephem]})
+      self.astro_dog.add_qcom_polys({ephem.prn: [ephem]})
 
     else:
       if gnss_msg.which() == 'ephemeris':
