@@ -8,7 +8,6 @@ from common.conversions import Conversions as CV
 from selfdrive.car import dbc_dict
 from selfdrive.car.docs_definitions import CarFootnote, CarInfo, Column, Harness
 from selfdrive.car.fw_query_definitions import FwQueryConfig, Request, p16
-from common.params import Params
 
 Ecu = car.CarParams.Ecu
 
@@ -17,7 +16,7 @@ class CarControllerParams:
   ACCEL_MIN = -3.5 # m/s^2
   ACCEL_MAX = 2.0 # m/s^2
 
-  def __init__(self, CP, vEgoRaw=100.):
+  def __init__(self, CP):
     self.STEER_DELTA_UP = 3
     self.STEER_DELTA_DOWN = 7
     self.STEER_DRIVER_ALLOWANCE = 50
@@ -27,12 +26,12 @@ class CarControllerParams:
     self.STEER_STEP = 1  # 100 Hz
 
     if CP.carFingerprint in CANFD_CAR:
-      self.STEER_MAX = 384 if vEgoRaw < 11. else 330
-      self.STEER_DRIVER_ALLOWANCE = 350
+      self.STEER_MAX = 270
+      self.STEER_DRIVER_ALLOWANCE = 250
       self.STEER_DRIVER_MULTIPLIER = 2
-      self.STEER_THRESHOLD = 350
-      self.STEER_DELTA_UP = 10 if vEgoRaw < 11. else 2
-      self.STEER_DELTA_DOWN = 10 if vEgoRaw < 11. else 3
+      self.STEER_THRESHOLD = 250
+      self.STEER_DELTA_UP = 2
+      self.STEER_DELTA_DOWN = 3
 
     # To determine the limit for your car, find the maximum value that the stock LKAS will request.
     # If the max stock LKAS request is <384, add your car to this list.
@@ -41,10 +40,6 @@ class CarControllerParams:
                                CAR.KIA_OPTIMA_H, CAR.KIA_SORENTO):
       self.STEER_MAX = 255
 
-    # these cars have significantly more torque than most HKG
-    elif CP.carFingerprint in (CAR.KONA, CAR.KONA_EV, CAR.KONA_HEV, CAR.KONA_EV_2022):
-      self.STEER_MAX = 270
-
     # these cars have significantly more torque than most HKG; limit to 70% of max
     elif CP.flags & HyundaiFlags.ALT_LIMITS:
       self.STEER_MAX = 270
@@ -52,18 +47,9 @@ class CarControllerParams:
       self.STEER_DELTA_DOWN = 3
 
     # Default for most HKG
-    elif Params().get_bool('AggressiveSteering') and vEgoRaw < 17.:
-      self.STEER_MAX = 409
-      self.STEER_DRIVER_ALLOWANCE = 200
-      self.STEER_THRESHOLD = 250
-      self.STEER_DELTA_UP = 6
-      self.STEER_DELTA_DOWN = 10
     else:
-      self.STEER_MAX = 384
-      self.STEER_DRIVER_ALLOWANCE = 50
-      self.STEER_THRESHOLD = 150
-      self.STEER_DELTA_UP = 3
-      self.STEER_DELTA_DOWN = 7
+      self.STEER_MAX = 409
+
 
 class HyundaiFlags(IntFlag):
   CANFD_HDA2 = 1
@@ -1732,7 +1718,7 @@ FEATURES = {
   "use_tcu_gears": {CAR.KIA_OPTIMA_G4, CAR.KIA_OPTIMA_G4_FL, CAR.SONATA_LF, CAR.VELOSTER, CAR.TUCSON},
   "use_elect_gears": {CAR.KIA_NIRO_EV, CAR.KIA_NIRO_PHEV, CAR.KIA_NIRO_HEV_2021, CAR.KIA_OPTIMA_H, CAR.IONIQ_EV_LTD, CAR.KONA_EV, CAR.IONIQ, CAR.IONIQ_EV_2020, CAR.IONIQ_PHEV, CAR.ELANTRA_HEV_2021, CAR.SONATA_HYBRID, CAR.KONA_HEV, CAR.IONIQ_HEV_2022, CAR.SANTA_FE_HEV_2022, CAR.SANTA_FE_PHEV_2022, CAR.IONIQ_PHEV_2019, CAR.KONA_EV_2022, CAR.KIA_K5_HEV_2020},
   "send_mdps12": {CAR.GENESIS_G90},
-  }
+}
 
 CANFD_CAR = {CAR.KIA_EV6, CAR.IONIQ_5, CAR.TUCSON_4TH_GEN, CAR.TUCSON_HYBRID_4TH_GEN, CAR.KIA_SPORTAGE_HYBRID_5TH_GEN, CAR.SANTA_CRUZ_1ST_GEN, CAR.KIA_SPORTAGE_5TH_GEN, CAR.GENESIS_GV70_1ST_GEN, CAR.KIA_SORENTO_PHEV_4TH_GEN, CAR.GENESIS_GV60_EV_1ST_GEN, CAR.KIA_SORENTO_4TH_GEN, CAR.KIA_NIRO_HEV_2ND_GEN}
 

@@ -595,12 +595,12 @@ CommunityPanel::CommunityPanel(SettingsWindow *parent) : ListWidget(parent) {
       "",
       "../assets/offroad/icon_openpilot.png",
     },
-    {
-      "AggressiveSteering",
-      tr("Aggressive Steering"),
-      tr("more aggressive steering performance"),
-      "../assets/offroad/icon_openpilot.png",
-    },
+//    {
+//      "AggressiveSteering",
+//      tr("Aggressive Steering"),
+//      tr("more aggressive steering performance"),
+//      "../assets/offroad/icon_openpilot.png",
+//    },
   };
 
   for (auto &[param, title, desc, icon] : toggle_defs) {
