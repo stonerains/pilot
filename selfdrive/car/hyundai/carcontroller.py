@@ -21,8 +21,8 @@ LongCtrlState = car.CarControl.Actuators.LongControlState
 # EPS faults if you apply torque while the steering angle is above 90 degrees for more than 1 second
 # All slightly below EPS thresholds to avoid fault
 MAX_ANGLE = 85
-MAX_ANGLE_FRAMES = 75  # faulted at ~85
-MAX_ANGLE_CONSECUTIVE_FRAMES = 3
+MAX_ANGLE_FRAMES = 89
+MAX_ANGLE_CONSECUTIVE_FRAMES = 2
 
 
 def process_hud_alert(enabled, fingerprint, hud_control):
@@ -78,10 +78,8 @@ class CarController:
     hud_control = CC.hudControl
 
     # steering torque
-    self.params = CarControllerParams(self.CP, CS.out.vEgoRaw)
     new_steer = int(round(actuators.steer * self.params.STEER_MAX))
     apply_steer = apply_driver_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.params)
-    apply_steer = clip(apply_steer, -self.params.STEER_MAX, self.params.STEER_MAX)
 
     if not CC.latActive:
       apply_steer = 0

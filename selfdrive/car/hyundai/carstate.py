@@ -367,6 +367,7 @@ class CarState(CarStateBase):
       ("BrakeLight", "TCS13"),
       ("aBasis", "TCS13"),
       ("DriverBraking", "TCS13"),
+      ("StandStill", "TCS13"),
       ("PBRAKE_ACT", "TCS13"),
       ("DriverOverride", "TCS13"),
       ("CF_VSM_Avail", "TCS13"),
