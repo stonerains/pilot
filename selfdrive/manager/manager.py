@@ -42,8 +42,8 @@ def manager_init() -> None:
     ("LanguageSetting", "main_en"),
     ("OpenpilotEnabledToggle", "1"),
     ("IsMetric", "1"),
-    ("LaneChangeEnabled", "0"),
-    ("AutoLaneChangeEnabled", "0"),
+    # ("LaneChangeEnabled", "0"),
+    # ("AutoLaneChangeEnabled", "0"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
