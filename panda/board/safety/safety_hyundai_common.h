@@ -1,9 +1,6 @@
 #ifndef SAFETY_HYUNDAI_COMMON_H
 #define SAFETY_HYUNDAI_COMMON_H
 
-// safety param flags
-// first byte is for flags, second is for max steer
-const int HYUNDAI_PARAM_MAX_STEER = 0xff00;
 const int HYUNDAI_PARAM_EV_GAS = 1;
 const int HYUNDAI_PARAM_HYBRID_GAS = 2;
 const int HYUNDAI_PARAM_LONGITUDINAL = 4;
