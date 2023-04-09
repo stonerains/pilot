@@ -270,8 +270,8 @@ class CarState(CarStateBase):
     ret.steeringPressed = self.update_steering_pressed(abs(ret.steeringTorque) > self.params.STEER_THRESHOLD, 5)
     ret.steerFaultTemporary = cp.vl["MDPS"]["LKA_FAULT"] != 0
 
-    ret.leftBlinker, ret.rightBlinker = self.update_blinker_from_lamp(200, cp.vl["BLINKER_STALKS"]["LEFT_BLINKER"],
-                                                                      cp.vl["BLINKER_STALKS"]["RIGHT_BLINKER"])
+    ret.leftBlinker, ret.rightBlinker = self.update_blinker_from_lamp(50, cp.vl["BLINKERS"]["LEFT_LAMP"],
+                                                                      cp.vl["BLINKERS"]["RIGHT_LAMP"])
     if self.CP.enableBsm:
       ret.leftBlindspot = cp.vl["BLINDSPOTS_REAR_CORNERS"]["FL_INDICATOR"] != 0
       ret.rightBlindspot = cp.vl["BLINDSPOTS_REAR_CORNERS"]["FR_INDICATOR"] != 0
@@ -315,8 +315,8 @@ class CarState(CarStateBase):
     ret.brakeLights = ret.brakePressed
 
     # TODO
-    CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT,
-            cruise_state_control=self.CP.openpilotLongitudinalControl and CruiseStateManager.instance().cruise_state_control)
+    #CruiseStateManager.instance().update(ret, self.main_buttons, self.cruise_buttons, BUTTONS_DICT,
+    #        cruise_state_control=self.CP.openpilotLongitudinalControl and CruiseStateManager.instance().cruise_state_control)
 
     return ret
 
@@ -637,8 +637,8 @@ class CarState(CarStateBase):
       ("DISTANCE_UNIT", "CRUISE_BUTTONS_ALT"),
       ("LFA_BTN", cruise_btn_msg),
 
-      ("LEFT_BLINKER", "BLINKER_STALKS"),
-      ("RIGHT_BLINKER", "BLINKER_STALKS"),
+      ("LEFT_LAMP", "BLINKERS"),
+      ("RIGHT_LAMP", "BLINKERS"),
 
       ("DRIVER_DOOR_OPEN", "DOORS_SEATBELTS"),
       ("DRIVER_SEATBELT_LATCHED", "DOORS_SEATBELTS"),
@@ -651,7 +651,7 @@ class CarState(CarStateBase):
       ("MDPS", 100),
       ("TCS", 50),
       ("CRUISE_BUTTONS_ALT", 50),
-      ("BLINKER_STALKS", 1),
+      ("BLINKERS", 4),
       ("DOORS_SEATBELTS", 4),
     ]
 
