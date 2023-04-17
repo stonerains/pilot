@@ -11,7 +11,7 @@ from selfdrive.car.hyundai.hyundaicanfd import CanBus
 from selfdrive.car.hyundai.values import HyundaiFlags, Buttons, CarControllerParams, CANFD_CAR, CAR, \
   LEGACY_SAFETY_MODE_CAR, CAN_GEARS
 from selfdrive.car.interfaces import ACCEL_MAX, ACCEL_MIN
-from selfdrive.car.hyundai.values_community import FEATURES
+from selfdrive.car.hyundai.values_community import CAN_GEARS
 from selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager
 from selfdrive.controls.neokii.navi_controller import SpeedLimiter
 from selfdrive.controls.neokii.speed_controller import CREEP_SPEED
@@ -237,9 +237,9 @@ class CarController:
         can_sends.append(hyundaican.create_frt_radar_opt(self.packer))
 
       # 20 Hz LFA MFA message
-      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value and not self.car_fingerprint in FEATURES["has_hda"]:
+      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value and not self.car_fingerprint in CAN_GEARS["has_hda"]:
         can_sends.append(hyundaican.create_lfahda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active()))
-      elif self.frame % 5 == 0 and self.car_fingerprint in FEATURES["has_hda"]:
+      elif self.frame % 5 == 0 and self.car_fingerprint in CAN_GEARS["has_hda"]:
         can_sends.append(hyundaican_community.create_hda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active(), CS, hud_control.leftLaneVisible, hud_control.rightLaneVisible))
 
     CC.applyAccel = accel
