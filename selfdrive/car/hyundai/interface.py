@@ -259,7 +259,7 @@ class CarInterface(CarInterfaceBase):
       ret.longitudinalTuning.kiBP = [0., 150. * CV.KPH_TO_MS]
       ret.longitudinalTuning.kiV = [0.75, 0.025]
 
-      ret.stoppingDecelRate = 0.3
+      ret.stoppingDecelRate = 0.1
       ret.steerActuatorDelay = 0.0
       ret.steerLimitTimer = 2.0
 
@@ -273,7 +273,7 @@ class CarInterface(CarInterfaceBase):
     ret.vEgoStarting = 0.3
     ret.vEgoStopping = 0.3
     ret.startAccel = 1.0
-    ret.longitudinalActuatorDelayLowerBound = 0.3
+    ret.longitudinalActuatorDelayLowerBound = 0.2
     ret.longitudinalActuatorDelayUpperBound = 0.5
 
     # *** feature detection ***
