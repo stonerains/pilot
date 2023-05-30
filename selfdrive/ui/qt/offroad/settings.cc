@@ -574,18 +574,18 @@ CommunityPanel::CommunityPanel(SettingsWindow *parent) : ListWidget(parent) {
       "",
       "../assets/offroad/icon_shell.png",
     },
-//    {
-//      "LaneChangeEnabled",
-//      tr("Enable Lane Change Assist"),
-//      tr("Perform assisted lane changes with openpilot by checking your surroundings for safety, activating the turn signal and gently nudging the steering wheel towards your desired lane. openpilot is not capable of checking if a lane change is safe. You must continuously observe your surroundings to use this feature."),
-//      "../assets/offroad/icon_road.png",
-//    },
-//    {
-//      "AutoLaneChangeEnabled",
-//      tr("Enable Auto Lane Change(Nudgeless)"),
-//      tr("Automatically changes lanes at turn signal."),
-//      "../assets/offroad/icon_road.png",
-//    },
+    {
+      "LaneChangeEnabled",
+      tr("Enable Lane Change Assist"),
+      tr("Perform assisted lane changes with openpilot by checking your surroundings for safety, activating the turn signal and gently nudging the steering wheel towards your desired lane. openpilot is not capable of checking if a lane change is safe. You must continuously observe your surroundings to use this feature."),
+      "../assets/offroad/icon_road.png",
+    },
+    {
+      "AutoLaneChangeEnabled",
+      tr("Enable Auto Lane Change(Nudgeless)"),
+      tr("Automatically changes lanes at turn signal."),
+      "../assets/offroad/icon_road.png",
+    },
     {
       "ShowTurnSignal",
       tr("Show Turnsignal"),

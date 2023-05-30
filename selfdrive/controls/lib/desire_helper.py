@@ -4,6 +4,7 @@ from common.realtime import DT_MDL
 from common.params import Params
 from common.numpy_fast import interp
 
+AUTO_LCA_START_TIME = 0.5
 LaneChangeState = log.LateralPlan.LaneChangeState
 LaneChangeDirection = log.LateralPlan.LaneChangeDirection
 
@@ -42,17 +43,30 @@ class DesireHelper:
     self.prev_one_blinker = False
     self.desire = log.LateralPlan.Desire.none
 
-  def update(self, carstate, lateral_active, lane_change_prob):
+    self.lane_change_enabled = Params().get_bool('LaneChangeEnabled')
+    self.auto_lane_change_enabled = Params().get_bool('AutoLaneChangeEnabled')
+    self.auto_lane_change_timer = 0.0
+    self.prev_torque_applied = False
+
+  def update(self, carstate, lateral_active, lane_change_prob, md):
     v_ego = carstate.vEgo
     one_blinker = carstate.leftBlinker != carstate.rightBlinker
     below_lane_change_speed = v_ego < LANE_CHANGE_SPEED_MIN
 
-    if not lateral_active or self.lane_change_timer > LANE_CHANGE_TIME_MAX:
+    left_road_edge = -interp(5.0, md.roadEdges[0].x, md.roadEdges[0].y)
+    right_road_edge = interp(5.0, md.roadEdges[1].x, md.roadEdges[1].y)
+
+    if (not lateral_active) or (self.lane_change_timer > LANE_CHANGE_TIME_MAX) or (not one_blinker) or (not self.lane_change_enabled):
       self.lane_change_state = LaneChangeState.off
       self.lane_change_direction = LaneChangeDirection.none
     else:
       # LaneChangeState.off
       if self.lane_change_state == LaneChangeState.off and one_blinker and not self.prev_one_blinker and not below_lane_change_speed:
+        if carstate.leftBlinker:
+          self.lane_change_direction = LaneChangeDirection.left
+        elif carstate.rightBlinker:
+          self.lane_change_direction = LaneChangeDirection.right
+
         self.lane_change_state = LaneChangeState.preLaneChange
         self.lane_change_ll_prob = 1.0
 
@@ -64,15 +78,24 @@ class DesireHelper:
 
         torque_applied = carstate.steeringPressed and \
                          ((carstate.steeringTorque > 0 and self.lane_change_direction == LaneChangeDirection.left) or
-                          (carstate.steeringTorque < 0 and self.lane_change_direction == LaneChangeDirection.right))
+                          (carstate.steeringTorque < 0 and self.lane_change_direction == LaneChangeDirection.right)) or \
+                          self.auto_lane_change_enabled and \
+                          (AUTO_LCA_START_TIME+0.25) > self.auto_lane_change_timer > AUTO_LCA_START_TIME
 
         blindspot_detected = ((carstate.leftBlindspot and self.lane_change_direction == LaneChangeDirection.left) or
                               (carstate.rightBlindspot and self.lane_change_direction == LaneChangeDirection.right))
 
+        road_edge_detected = (((left_road_edge < 3.5) and self.lane_change_direction == LaneChangeDirection.left) or
+                              ((right_road_edge < 3.5) and self.lane_change_direction == LaneChangeDirection.right))
+
         if not one_blinker or below_lane_change_speed:
           self.lane_change_state = LaneChangeState.off
-        elif torque_applied and not blindspot_detected:
+        elif torque_applied and (not blindspot_detected or self.prev_torque_applied) and (not road_edge_detected):
           self.lane_change_state = LaneChangeState.laneChangeStarting
+        elif torque_applied and blindspot_detected and self.auto_lane_change_timer != 10.0:
+          self.auto_lane_change_timer = 10.0
+        elif not torque_applied and self.auto_lane_change_timer == 10.0 and not self.prev_torque_applied:
+          self.prev_torque_applied = True
 
       # LaneChangeState.laneChangeStarting
       elif self.lane_change_state == LaneChangeState.laneChangeStarting:
@@ -99,6 +122,12 @@ class DesireHelper:
       self.lane_change_timer = 0.0
     else:
       self.lane_change_timer += DT_MDL
+
+    if self.lane_change_state == LaneChangeState.off:
+      self.auto_lane_change_timer = 0.0
+      self.prev_torque_applied = False
+    elif self.auto_lane_change_timer < (AUTO_LCA_START_TIME+0.25): # stop afer 3 sec resume from 10 when torque applied
+      self.auto_lane_change_timer += DT_MDL
 
     self.prev_one_blinker = one_blinker
 

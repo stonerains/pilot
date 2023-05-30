@@ -536,6 +536,14 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
       Priority.LOW, VisualAlert.none, AudibleAlert.prompt, .1),
   },
 
+  EventName.laneChangeBlockedroadEdge: {
+    ET.WARNING: Alert(
+      "RoadEdge Detected",
+      "",
+      AlertStatus.userPrompt, AlertSize.small,
+      Priority.LOW, VisualAlert.none, AudibleAlert.prompt, .1),
+  },
+
   EventName.laneChange: {
     ET.WARNING: Alert(
       "Changing Lanes",

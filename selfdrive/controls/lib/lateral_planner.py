@@ -7,7 +7,7 @@ from system.swaglog import cloudlog
 from selfdrive.controls.lib.lateral_mpc_lib.lat_mpc import LateralMpc
 from selfdrive.controls.lib.lateral_mpc_lib.lat_mpc import N as LAT_MPC_N
 from selfdrive.controls.lib.drive_helpers import CONTROL_N, MIN_SPEED, get_speed_error
-from selfdrive.controls.lib.desire_helper import DesireHelper
+from selfdrive.controls.lib.desire_helper import DesireHelper, AUTO_LCA_START_TIME
 import cereal.messaging as messaging
 from cereal import log
 
@@ -78,7 +78,7 @@ class LateralPlanner:
 
     if self.use_lanelines:
       lane_change_prob = self.LP.l_lane_change_prob + self.LP.r_lane_change_prob
-      self.DH.update(sm['carState'], sm['carControl'].latActive, lane_change_prob)
+      self.DH.update(sm['carState'], sm['carControl'].latActive, lane_change_prob, md)
 
       # Turn off lanes during lane change
       if self.DH.desire == log.LateralPlan.Desire.laneChangeRight or self.DH.desire == log.LateralPlan.Desire.laneChangeLeft:
@@ -92,7 +92,7 @@ class LateralPlanner:
         self.l_lane_change_prob = desire_state[log.LateralPlan.Desire.laneChangeLeft]
         self.r_lane_change_prob = desire_state[log.LateralPlan.Desire.laneChangeRight]
       lane_change_prob = self.l_lane_change_prob + self.r_lane_change_prob
-      self.DH.update(sm['carState'], sm['carControl'].latActive, lane_change_prob)
+      self.DH.update(sm['carState'], sm['carControl'].latActive, lane_change_prob, md)
 
       d_path_xyz = self.path_xyz
 
@@ -160,5 +160,8 @@ class LateralPlanner:
     lateralPlan.useLaneLines = self.use_lanelines
     lateralPlan.laneChangeState = self.DH.lane_change_state
     lateralPlan.laneChangeDirection = self.DH.lane_change_direction
+
+    lateralPlan.autoLaneChangeEnabled = self.DH.auto_lane_change_enabled
+    lateralPlan.autoLaneChangeTimer = int(AUTO_LCA_START_TIME) - int(self.DH.auto_lane_change_timer)
 
     pm.send('lateralPlan', plan_send)

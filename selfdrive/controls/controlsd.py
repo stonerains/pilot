@@ -4,7 +4,7 @@ import math
 from typing import SupportsFloat
 
 from cereal import car, log
-from common.numpy_fast import clip
+from common.numpy_fast import clip, interp
 from common.realtime import sec_since_boot, config_realtime_process, Priority, Ratekeeper, DT_CTRL
 from common.profiler import Profiler
 from common.params import Params, put_nonblocking
@@ -302,9 +302,16 @@ class Controls:
     # Handle lane change
     if self.sm['lateralPlan'].laneChangeState == LaneChangeState.preLaneChange:
       direction = self.sm['lateralPlan'].laneChangeDirection
+      md = self.sm['modelV2']
+      left_road_edge = -interp(5.0, md.roadEdges[0].x, md.roadEdges[0].y)
+      right_road_edge = interp(5.0, md.roadEdges[1].x, md.roadEdges[1].y)
+
       if (CS.leftBlindspot and direction == LaneChangeDirection.left) or \
          (CS.rightBlindspot and direction == LaneChangeDirection.right):
         self.events.add(EventName.laneChangeBlocked)
+      elif ((left_road_edge < 3.5) and direction == LaneChangeDirection.left) or \
+         ((right_road_edge < 3.5) and direction == LaneChangeDirection.right):
+        self.events.add(EventName.laneChangeBlockedroadEdge)
       else:
         if direction == LaneChangeDirection.left:
           self.events.add(EventName.preLaneChangeLeft)
