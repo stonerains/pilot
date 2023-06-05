@@ -1076,6 +1076,29 @@ This may take up to a minute.</source>
     </message>
 </context>
 <context>
+    <name>WiFiPromptWidget</name>
+    <message>
+        <source>Setup Wi-Fi</source>
+        <translation>Wi-Fi 설정</translation>
+    </message>
+    <message>
+        <source>Connect to Wi-Fi to upload driving data and help improve openpilot</source>
+        <translation>Wi-Fi에 연결하여 주행 데이터를 올려고 openpilot 개선에 도움을 주세요.</translation>
+    </message>
+    <message>
+        <source>Open Settings</source>
+        <translation>설정 열기</translation>
+    </message>
+    <message>
+        <source>Uploading training data</source>
+        <translation>트레이닝 데이터 올리기</translation>
+    </message>
+    <message>
+        <source>Your data is used to train driving models and help improve openpilot</source>
+        <translation>당신의 데이터는 운전 모델을 학습시켜서 openpilot을 개선하는데 도움을 줍니다.</translation>
+    </message>
+</context>
+<context>
     <name>WifiUI</name>
     <message>
         <source>Scanning for networks...</source>
