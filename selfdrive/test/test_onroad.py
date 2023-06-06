@@ -110,6 +110,7 @@ class TestOnroad(unittest.TestCase):
       params.clear_all()
     params.remove("CurrentRoute")
     set_params_enabled()
+    os.environ['TESTING_CLOSET'] = '1'
     if os.path.exists(ROOT):
       shutil.rmtree(ROOT)
 
