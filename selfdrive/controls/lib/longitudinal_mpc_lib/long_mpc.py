@@ -31,7 +31,7 @@ COST_E_DIM = 5
 COST_DIM = COST_E_DIM + 1
 CONSTR_DIM = 4
 
-X_EGO_OBSTACLE_COST = 8.
+X_EGO_OBSTACLE_COST = 3.
 X_EGO_COST = 0.
 V_EGO_COST = 0.
 A_EGO_COST = 0.
@@ -45,10 +45,10 @@ ACADOS_SOLVER_TYPE = 'SQP_RTI'
 
 
 CRUISE_GAP_BP = [1., 2., 3., 4.]
-CRUISE_GAP_V = [1.5, 2., 2.5, 3.]
-CRUISE_GAP_E2E_V = [1.8, 2.3, 2.8, 3.3]
+CRUISE_GAP_V = [1.3, 1.7, 2., 3.]
+CRUISE_GAP_E2E_V = [1.5, 1.8, 2.5, 3.5]
 
-DIFF_RADAR_VISION = 1.0
+DIFF_RADAR_VISION = 1.4
 
 
 # Fewer timestamps don't hurt performance and lead to
@@ -63,8 +63,8 @@ T_DIFFS = np.diff(T_IDXS, prepend=[0.])
 MIN_ACCEL = -3.5
 MAX_ACCEL = 2.0
 COMFORT_BRAKE = 2.5
-STOP_DISTANCE = 5.0
-STOP_DISTANCE_E2E = 5.0
+STOP_DISTANCE = 6.0
+STOP_DISTANCE_E2E = 5.5
 
 def get_jerk_factor(personality=log.LongitudinalPersonality.standard):
   if personality==log.LongitudinalPersonality.relaxed:
