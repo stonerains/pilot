@@ -126,6 +126,7 @@ FW_VERSIONS = {
   CAR.GENESIS_EQ900: {
     (Ecu.fwdCamera, 0x7c4, None): [
       b'\xf1\x00HI  LKAS AT USA LHD 1.00 1.00 95895-D2020 160302',
+      b'\xf1\x00HI  LKAS AT KOR LHD 1.00 1.00 95895-D2020 160302',
     ],
     (Ecu.fwdRadar, 0x7d0, None): [
       b'\xf1\x00HI__ SCC F-CUP      1.00 1.01 96400-D2100         ',
