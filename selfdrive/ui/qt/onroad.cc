@@ -97,6 +97,15 @@ void OnroadWindow::updateState(const UIState &s) {
 }
 
 void OnroadWindow::mouseReleaseEvent(QMouseEvent* e) {
+#ifdef ENABLE_MAPS
+  if (map != nullptr) {
+    bool sidebarVisible = geometry().x() > 0;
+    if (map->isVisible() && !((MapPanel *)map)->isShowingMap() && e->windowPos().x() >= 1080) {
+      return;
+    }
+    map->setVisible(!sidebarVisible && !map->isVisible());
+  }
+#endif
 
   QRect rc = rect();
   if(isMapVisible()) {
@@ -144,11 +153,6 @@ void OnroadWindow::mouseReleaseEvent(QMouseEvent* e) {
 
       return;
     }
-
-    if (map != nullptr) {
-      bool sidebarVisible = geometry().x() > 0;
-      map->setVisible(!sidebarVisible && !map->isVisible());
-    }
   }
 
   // propagation event to parent(HomeWindow)
@@ -156,15 +160,6 @@ void OnroadWindow::mouseReleaseEvent(QMouseEvent* e) {
 }
 
 void OnroadWindow::mousePressEvent(QMouseEvent* e) {
-#ifdef ENABLE_MAPS
-  if (map != nullptr) {
-    bool sidebarVisible = geometry().x() > 0;
-    if (map->isVisible() && !((MapPanel *)map)->isShowingMap() && e->windowPos().x() >= 1080) {
-      return;
-    }
-    map->setVisible(!sidebarVisible && !map->isVisible());
-  }
-#endif
 
   QRect rc = rect();
   if(isMapVisible()) {
@@ -181,7 +176,6 @@ void OnroadWindow::mousePressEvent(QMouseEvent* e) {
   if(rc.contains(e->pos())) {
     startPos = e->pos();
   }
-  // propagation event to parent(HomeWindow)
   QWidget::mousePressEvent(e);
 }
 
