@@ -33,7 +33,7 @@
 #include <QListWidget>
 
 TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
-  // param, title, desc, icon, confirm
+  // param, title, desc, icon
   std::vector<std::tuple<QString, QString, QString, QString>> toggle_defs{
     {
       "OpenpilotEnabledToggle",
@@ -86,12 +86,12 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
       tr("Use 24h format instead of am/pm"),
       "../assets/offroad/icon_metric.png",
     },
-    {
+    /*{
       "NavSettingLeftSide",
       tr("Show Map on Left Side of UI"),
       tr("Show map on left side when in split screen view."),
       "../assets/offroad/icon_road.png",
-    },
+    },*/
 #endif
   };
 

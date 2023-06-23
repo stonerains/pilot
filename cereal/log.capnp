@@ -1063,7 +1063,7 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
     u @1 :List(Float32);
   }
 
-  # for ACL
+  # for ACL(boxkon)
   autoLaneChangeEnabled @34 :Bool;
   autoLaneChangeTimer @35 :Int8;
 
