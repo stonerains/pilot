@@ -288,8 +288,8 @@ AnnotatedCameraWidget::AnnotatedCameraWidget(VisionStreamType type, QWidget* par
   ic_autohold_active = QPixmap("../assets/images/img_autohold_active.png").scaled(img_size, img_size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
   ic_nda = QPixmap("../assets/images/img_nda.png");
   ic_hda = QPixmap("../assets/images/img_hda.png");
-  ic_nda2 = QPixmap("../assets/images/img_nda2.png");
-  ic_hda2 = QPixmap("../assets/images/img_hda2.png");
+  ic_nda2 = QPixmap("../assets/images/img_hda2.png");
+  ic_hda2 = QPixmap("../assets/images/img_nda2.png");
   ic_tire_pressure = QPixmap("../assets/images/img_tire_pressure.png");
   ic_turn_signal_l = QPixmap("../assets/images/turn_signal_l.png");
   ic_turn_signal_r = QPixmap("../assets/images/turn_signal_r.png");
