@@ -11,7 +11,6 @@
 #ifdef ENABLE_MAPS
 #include "selfdrive/ui/qt/maps/map_panel.h"
 #include "selfdrive/ui/qt/maps/map_helpers.h"
-#include "selfdrive/ui/qt/maps/map_panel.h"
 #endif
 
 #include "system/hardware/hw.h"
@@ -398,11 +397,8 @@ void AnnotatedCameraWidget::drawLaneLines(QPainter &painter, const UIState *s) {
     bg.setColorAt(0.5, QColor::fromHslF(112 / 360., 1.0, 0.68, 0.35));
     bg.setColorAt(1.0, QColor::fromHslF(112 / 360., 1.0, 0.68, 0.0));
   }
-
   painter.setBrush(bg);
   painter.drawPolygon(scene.track_vertices);
-//  double dt = millis_since_boot() - t;
-//  qDebug() << "Took" << dt << "ms to draw path";
 
   painter.restore();
 }

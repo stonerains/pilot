@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QPushButton>
 #include <QStackedLayout>
 #include <QWidget>
 
