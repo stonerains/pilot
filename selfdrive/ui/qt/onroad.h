@@ -107,6 +107,8 @@ protected:
   QPixmap ic_autohold_active;
   QPixmap ic_nda;
   QPixmap ic_hda;
+  QPixmap ic_nda2;
+  QPixmap ic_hda2;
   QPixmap ic_tire_pressure;
   QPixmap ic_turn_signal_l;
   QPixmap ic_turn_signal_r;
@@ -139,13 +141,9 @@ public:
 signals:
   void mapWindowShown();
 
-protected:
-  void mousePressEvent(QMouseEvent* e) override;
-  void mouseReleaseEvent(QMouseEvent* e) override;
-
-  void paintEvent(QPaintEvent *event) override;
-
 private:
+  void paintEvent(QPaintEvent *event);
+  void mousePressEvent(QMouseEvent* e) override;
   OnroadAlerts *alerts;
   AnnotatedCameraWidget *nvg;
   QColor bg = bg_colors[STATUS_DISENGAGED];

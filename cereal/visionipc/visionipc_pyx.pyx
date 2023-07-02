@@ -112,18 +112,6 @@ cdef class VisionIpcClient:
   def timestamp_eof(self):
     return self.extra.timestamp_eof
 
-  @property
-  def frame_id(self):
-    return self.extra.frame_id
-
-  @property
-  def timestamp_sof(self):
-    return self.extra.timestamp_sof
-
-  @property
-  def timestamp_eof(self):
-    return self.extra.timestamp_eof
-
   def recv(self, int timeout_ms=100):
     buf = self.client.recv(&self.extra, timeout_ms)
     if not buf:
