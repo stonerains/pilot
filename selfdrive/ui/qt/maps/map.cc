@@ -9,6 +9,7 @@
 #include "selfdrive/ui/qt/request_repeater.h"
 #include "selfdrive/ui/qt/util.h"
 #include "selfdrive/ui/ui.h"
+#include "common/params.h"
 
 
 const int PAN_TIMEOUT = 100;
@@ -56,6 +57,8 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
   QObject::connect(settings_btn, &QPushButton::clicked, [=]() {
     emit openSettings();
   });
+
+  if(Params().getBool("UseExternalNaviRoutes")) settings_btn->hide();
 
   auto last_gps_position = coordinate_from_param("LastGPSPosition");
   if (last_gps_position.has_value()) {
