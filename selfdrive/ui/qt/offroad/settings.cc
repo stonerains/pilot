@@ -389,10 +389,9 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
       margin: 0px;
       padding: 15px;
       border-width: 0;
-      border 1px grey solid;
       border-radius: 30px;
       color: #dddddd;
-      background-color: #292929;
+      background-color: #444444;
     }
     QPushButton:pressed {
       background-color: #3B3B3B;

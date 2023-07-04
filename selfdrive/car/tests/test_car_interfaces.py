@@ -10,7 +10,7 @@ from cereal import car
 from selfdrive.car import gen_empty_fingerprint
 from selfdrive.car.car_helpers import interfaces
 from selfdrive.car.fingerprints import _FINGERPRINTS as FINGERPRINTS, all_known_cars
-from selfdrive.test.fuzzy_generation import get_random_msg
+from selfdrive.test.fuzzy_generation import FuzzyGenerator
 
 
 class TestCarInterfaces(unittest.TestCase):
