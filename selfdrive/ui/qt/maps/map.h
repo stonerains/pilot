@@ -4,7 +4,6 @@
 
 #include <QGeoCoordinate>
 #include <QGestureEvent>
-#include <QHash>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMap>
@@ -36,14 +35,12 @@ private:
   QHBoxLayout *lane_layout;
   bool error = false;
   bool is_rhd = false;
-  QHash<QString, QPixmap> pixmap_cache;
 
 public:
   MapInstructions(QWidget * parent=nullptr);
   void showError(QString error);
   void noError();
   void hideIfNoError();
-  void buildPixmapCache();
 
 public slots:
   void updateDistance(float d);
