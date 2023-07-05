@@ -34,6 +34,12 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
   map_instructions->setVisible(false);
 
   map_eta = new MapETA(this);
+  /*QObject::connect(this, &MapWindow::ETAChanged, map_eta, &MapETA::updateETA);
+
+  const int h = 120;
+  map_eta->setFixedHeight(h);
+  map_eta->move(25, 1080 - h - UI_BORDER_SIZE*2);
+  map_eta->setVisible(false);*/
 
   // Settings button
   QSize icon_size(120, 120);
@@ -53,7 +59,7 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
     }
   )");
   settings_btn->show();  // force update
-  settings_btn->move(bdr_s, 1080 - bdr_s*3 - settings_btn->height());
+  settings_btn->move(UI_BORDER_SIZE, 1080 - UI_BORDER_SIZE*3 - settings_btn->height());
   QObject::connect(settings_btn, &QPushButton::clicked, [=]() {
     emit openSettings();
   });
@@ -209,12 +215,12 @@ void MapWindow::updateState(const UIState &s) {
     // TODO: only move if position should change
     // don't move while map isn't visible
     if (isVisible()) {
-      auto pos = 1080 - bdr_s*2 - settings_btn->height() - bdr_s;
+      auto pos = 1080 - UI_BORDER_SIZE*2 - settings_btn->height() - UI_BORDER_SIZE;
       if (map_eta->isVisible()) {
-        settings_btn->move(bdr_s, pos - map_eta->height());
+        settings_btn->move(UI_BORDER_SIZE, pos - map_eta->height());
         settings_btn->setIcon(settings_icon);
       } else {
-        settings_btn->move(bdr_s, pos);
+        settings_btn->move(UI_BORDER_SIZE, pos);
         settings_btn->setIcon(directions_icon);
       }
     }
@@ -607,4 +613,30 @@ void MapETA::updateETA(float s, float s_typical, float d) {
   eta_doc.setHtml(QString(R"(<body><b>%1</b>%2 <span style="color:%3"><b>%4</b>%5</span> <b>%6</b>%7</body>)")
                       .arg(eta[0], eta[1], color, remaining[0], remaining[1], distance[0], distance[1]));
   update();
+/*  distance_str.setNum(num, 'f', num < 100 ? 1 : 0);
+  distance->setText(distance_str);
+
+  show();
+  adjustSize();
+  repaint();
+  adjustSize();
+
+  // Rounded corners
+  const int radius = 25;
+  const auto r = rect();
+
+  // Top corners rounded
+  QPainterPath path;
+  path.setFillRule(Qt::WindingFill);
+  path.addRoundedRect(r, radius, radius);
+
+  // Bottom corners not rounded
+  path.addRect(r.marginsRemoved(QMargins(0, radius, 0, 0)));
+
+  // Set clipping mask
+  QRegion mask = QRegion(path.simplified().toFillPolygon().toPolygon());
+  setMask(mask);
+
+  // Center
+  move(static_cast<QWidget*>(parent())->width() / 2 - width() / 2, 1080 - height() - UI_BORDER_SIZE*2);*/
 }
