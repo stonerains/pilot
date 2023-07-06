@@ -40,6 +40,7 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
   map_eta->setFixedHeight(h);
   map_eta->move(25, 1080 - h - UI_BORDER_SIZE*2);
   map_eta->setVisible(false);*/
+  map_eta->setVisible(false);
 
   // Settings button
   QSize icon_size(120, 120);
@@ -639,4 +640,5 @@ void MapETA::updateETA(float s, float s_typical, float d) {
 
   // Center
   move(static_cast<QWidget*>(parent())->width() / 2 - width() / 2, 1080 - height() - UI_BORDER_SIZE*2);*/
+  move(static_cast<QWidget*>(parent())->width() / 2 - width() / 2, 1080 - height() - UI_BORDER_SIZE*2);  
 }

@@ -713,7 +713,7 @@ void AnnotatedCameraWidget::drawBottomIcons(QPainter &p) {
   }
 
   int x = radius / 2 + (UI_BORDER_SIZE * 2) + (radius + 50) * 2;
-  const int y = rect().bottom() - footer_h / 2 - 10;
+  const int y = rect().bottom() - UI_FOOTER_HEIGHT / 2 - 10;
 
   // cruise gap
   int gap = car_state.getCruiseState().getGapAdjust();
@@ -1435,7 +1435,7 @@ void AnnotatedCameraWidget::drawDriverState(QPainter &painter, const UIState *s)
 
   // base icon
   int x = radius / 2 + (UI_BORDER_SIZE * 2) + (radius + 50);
-  int y = rect().bottom() - footer_h / 2 - 10;
+  int y = rect().bottom() - UI_FOOTER_HEIGHT / 2 - 10;
 
   float opacity = dmActive ? 0.65f : 0.15f;
   drawIcon(painter, x, y, dm_img, blackColor(70), opacity);

@@ -698,6 +698,7 @@ BO_ 1365 FPCM11: 8 FPCM
 
 BO_ 871 LVR12: 8 LVR
  SG_ CF_Lvr_CruiseSet : 0|8@1+ (1.0,0.0) [0.0|255.0] "" CLU,TCU
+ SG_ CF_Lvr_IsgState : 8|2@1+ (1.0,0.0) [0.0|3.0] "" CLU,TCU
  SG_ CF_Lvr_Gear : 32|4@1+ (1.0,0.0) [0.0|15.0] ""  CLU,TCU
 
 BO_ 872 LVR11: 8 LVR
@@ -1480,8 +1481,7 @@ BO_ 1157 LFAHDA_MFC: 4 XXX
  SG_ HDA_Chime : 7|1@1+ (1,0) [0|1] "" XXX
  SG_ HDA_VSetReq : 8|8@1+ (1,0) [0|255] "km/h" XXX
  SG_ LFA_SysWarning : 16|3@1+ (1,0) [0|7] "" XXX
- SG_ HDA_Icon_Wheel : 20|1@1+ (1,0) [0|1] "" XXX
- SG_ HDA_LdwSysState : 21|2@1+ (1,0) [0|3] "" XXX
+ SG_ NEW_SIGNAL_1 : 20|3@1+ (1,0) [0|7] "" XXX
  SG_ LFA_Icon_State : 24|2@1+ (1,0) [0|3] "" XXX
  SG_ LFA_USM : 27|2@1+ (1,0) [0|3] "" XXX
  SG_ HDA_SysWarning : 29|2@1+ (1,0) [0|3] "" XXX
@@ -1609,7 +1609,7 @@ BO_ 1173 YRS13: 8 ACU
 
 BO_ 870 EMS_366: 8 EMS
  SG_ TQI_1 : 0|8@1+ (0.390625,0) [0|99.6094] "%" MDPS
- SG_ ENG_RPM : 8|16@1+ (0.25,0.0) [0.0|16383.75] "rpm" MDPS
+ SG_ N : 8|16@1+ (0.25,0.0) [0.0|16383.75] "rpm" MDPS
  SG_ TQI_2 : 24|8@1+ (0.390625,0) [0|99.6094] "%" MDPS
  SG_ VS : 40|8@1+ (1,0) [0|255] "km/h" MDPS
  SG_ SWI_IGK : 48|1@0+ (1,0) [0|1] "" XXX
@@ -1642,11 +1642,13 @@ BO_ 1348 Navi_HU: 8 XXX
  SG_ SpeedLim_Nav_Clu : 7|8@0+ (1,0) [0|255] "" XXX
 
 CM_ "BO_ E_EMS11: All (plug-in) hybrids use this gas signal: CR_Vcu_AccPedDep_Pos, and all EVs use the Accel_Pedal_Pos signal. See hyundai/values.py for a specific car list";
+CM_ SG_ 871 CF_Lvr_IsgState "Idle Stop and Go";
 CM_ SG_ 1348 SpeedLim_Nav_Clu "Speed limit displayed on Nav, Cluster and HUD";
 
 VAL_ 274 CUR_GR 1 "D" 2 "D" 3 "D" 4 "D" 5 "D" 6 "D" 7 "D" 8 "D" 14 "R" 0 "P";
-VAL_ 871 CF_Lvr_Gear 12 "D" 5 "D" 8 "D" 6 "N" 7 "R" 0 "P";
-VAL_ 882 Elect_Gear_Shifter 5 "D" 8 "D" 6 "N" 7 "R" 0 "P";
+VAL_ 871 CF_Lvr_IsgState 0 "enabled" 1 "activated" 2 "unknown" 3 "disabled";
+VAL_ 871 CF_Lvr_Gear 12 "T" 5 "D" 8 "S" 6 "N" 7 "R" 0 "P";
+VAL_ 882 Elect_Gear_Shifter 5 "D" 8 "S" 6 "N" 7 "R" 0 "P";
 VAL_ 905 ACCMode 0 "off" 1 "enabled" 2 "driver_override" 3 "off_maybe_fault" 4 "cancelled";
 VAL_ 909 CF_VSM_Warn 2 "FCW" 3 "AEB";
 VAL_ 916 ACCEnable 0 "SCC ready" 1 "SCC temp fault" 2 "SCC permanent fault" 3 "SCC permanent fault, communication issue";

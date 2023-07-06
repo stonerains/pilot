@@ -18,7 +18,7 @@
 
 const int UI_BORDER_SIZE = 20;
 const int UI_HEADER_HEIGHT = 420;
-const int footer_h = 280;
+const int UI_FOOTER_HEIGHT = 280;
 
 const int UI_FREQ = 20; // Hz
 typedef cereal::CarControl::HUDControl::AudibleAlert AudibleAlert;
@@ -189,7 +189,6 @@ private:
 UIState *uiState();
 
 // device management class
-
 class Device : public QObject {
   Q_OBJECT
 
