@@ -34,13 +34,6 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
   map_instructions->setVisible(false);
 
   map_eta = new MapETA(this);
-  /*QObject::connect(this, &MapWindow::ETAChanged, map_eta, &MapETA::updateETA);
-
-  const int h = 120;
-  map_eta->setFixedHeight(h);
-  map_eta->move(25, 1080 - h - UI_BORDER_SIZE*2);
-  map_eta->setVisible(false);*/
-  map_eta->setVisible(false);
 
   // Settings button
   QSize icon_size(120, 120);
@@ -200,7 +193,6 @@ void MapWindow::updateState(const UIState &s) {
 
   if (sm.updated("navInstruction")) {
     if (sm.valid("navInstruction")) {
-      m_map->setLayoutProperty("navLayer", "visibility", "visible");
       auto i = sm["navInstruction"].getNavInstruction();
       map_eta->updateETA(i.getTimeRemaining(), i.getTimeRemainingTypical(), i.getDistanceRemaining());
 
@@ -246,7 +238,7 @@ void MapWindow::updateState(const UIState &s) {
 void MapWindow::resizeGL(int w, int h) {
   m_map->resize(size() / MAP_SCALE);
   map_instructions->setFixedWidth(width());
-  map_eta->setGeometry(25, 1080 - 120 - UI_BORDER_SIZE * 2, w - 50, 120);
+  map_eta->setGeometry(0, height() - 120, w, 120);
 }
 
 void MapWindow::initializeGL() {
@@ -573,16 +565,17 @@ MapETA::MapETA(QWidget *parent) : QWidget(parent) {
   setVisible(false);
   setAttribute(Qt::WA_TranslucentBackground);
   eta_doc.setUndoRedoEnabled(false);
-  eta_doc.setDefaultStyleSheet("body {font-family:Inner;font-size:60px;color:white;} b{font-size:70px;font-weight:600}");
+  eta_doc.setDefaultStyleSheet("body {font-family:Inter;font-size:60px;color:white;} b{font-size:70px;font-weight:600}");
 }
 
 void MapETA::paintEvent(QPaintEvent *event) {
   if (!eta_doc.isEmpty()) {
     QPainter p(this);
+    p.setRenderHint(QPainter::Antialiasing);
     p.setPen(Qt::NoPen);
     p.setBrush(QColor(0, 0, 0, 150));
     QSizeF txt_size = eta_doc.size();
-    p.drawRoundedRect((width() - txt_size.width()) / 2 - UI_BORDER_SIZE, 0, txt_size.width() + UI_BORDER_SIZE * 2, height(), 25, 25);
+    p.drawRoundedRect((width() - txt_size.width()) / 2 - UI_BORDER_SIZE, 0, txt_size.width() + UI_BORDER_SIZE * 2, height() + 25, 25, 25);
     p.translate((width() - txt_size.width()) / 2, (height() - txt_size.height()) / 2);
     eta_doc.drawContents(&p);
   }
@@ -596,7 +589,7 @@ void MapETA::updateETA(float s, float s_typical, float d) {
   // ETA
   auto eta_t = QDateTime::currentDateTime().addSecs(s).time();
   auto eta = format_24h ? std::array{eta_t.toString("HH:mm"), tr("eta")}
-                        : std::array{eta_t.toString("h:mm"), eta_t.toString("a")};
+                        : std::array{eta_t.toString("h:mm a").split(' ')[0], eta_t.toString("a")};
 
   // Remaining time
   auto time_t = QDateTime::fromTime_t(s);
@@ -614,31 +607,4 @@ void MapETA::updateETA(float s, float s_typical, float d) {
   eta_doc.setHtml(QString(R"(<body><b>%1</b>%2 <span style="color:%3"><b>%4</b>%5</span> <b>%6</b>%7</body>)")
                       .arg(eta[0], eta[1], color, remaining[0], remaining[1], distance[0], distance[1]));
   update();
-/*  distance_str.setNum(num, 'f', num < 100 ? 1 : 0);
-  distance->setText(distance_str);
-
-  show();
-  adjustSize();
-  repaint();
-  adjustSize();
-
-  // Rounded corners
-  const int radius = 25;
-  const auto r = rect();
-
-  // Top corners rounded
-  QPainterPath path;
-  path.setFillRule(Qt::WindingFill);
-  path.addRoundedRect(r, radius, radius);
-
-  // Bottom corners not rounded
-  path.addRect(r.marginsRemoved(QMargins(0, radius, 0, 0)));
-
-  // Set clipping mask
-  QRegion mask = QRegion(path.simplified().toFillPolygon().toPolygon());
-  setMask(mask);
-
-  // Center
-  move(static_cast<QWidget*>(parent())->width() / 2 - width() / 2, 1080 - height() - UI_BORDER_SIZE*2);*/
-  move(static_cast<QWidget*>(parent())->width() / 2 - width() / 2, 1080 - height() - UI_BORDER_SIZE*2);  
 }
