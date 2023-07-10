@@ -390,6 +390,9 @@ class LongitudinalMpc:
     # Update in ACC mode or ACC/e2e blend
     if self.mode == 'acc':
       self.params[:,5] = LEAD_DANGER_FACTOR
+      if self.status:
+        d_rel = radarstate.leadOne.dRel if radarstate.leadOne.status else radarstate.leadTwo.dRel
+        self.params[:, 5] = interp(d_rel, [STOP_DISTANCE, 20], [1.0, 0.7])
 
       # Fake an obstacle for cruise, this ensures smooth acceleration to set speed
       # when the leads are no factor.
@@ -428,10 +431,6 @@ class LongitudinalMpc:
 
     else:
       raise NotImplementedError(f'Planner mode {self.mode} not recognized in planner update')
-
-    if self.status:
-      d_rel = radarstate.leadOne.dRel if radarstate.leadOne.status else radarstate.leadTwo.dRel
-      self.params[:,5] = interp(d_rel, [STOP_DISTANCE, 20], [1.0, 0.7])
 
     self.yref[:,1] = x
     self.yref[:,2] = v
