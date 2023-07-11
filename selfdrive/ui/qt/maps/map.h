@@ -124,5 +124,5 @@ public slots:
 
 signals:
   void requestVisible(bool visible);
-  void openSettings();
+  void requestSettings(bool settings);
 };
