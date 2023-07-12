@@ -280,7 +280,7 @@ void UIState::setPrimeType(int type) {
 
 Device::Device(QObject *parent) : brightness_filter(BACKLIGHT_OFFROAD, BACKLIGHT_TS, BACKLIGHT_DT), QObject(parent) {
   setAwake(true);
-  resetInteractiveTimout();
+  resetInteractiveTimeout();
 
   QObject::connect(uiState(), &UIState::uiUpdate, this, &Device::update);
 }
@@ -302,7 +302,7 @@ void Device::setAwake(bool on) {
   }
 }
 
-void Device::resetInteractiveTimout() {
+void Device::resetInteractiveTimeout() {
   interactive_timeout = (ignition_on ? 10 : 30) * UI_FREQ;
 }
 
@@ -340,9 +340,9 @@ void Device::updateWakefulness(const UIState &s) {
   ignition_on = s.scene.ignition;
 
   if (ignition_just_turned_off) {
-    resetInteractiveTimout();
+    resetInteractiveTimeout();
   } else if (interactive_timeout > 0 && --interactive_timeout == 0) {
-    emit interactiveTimout();
+    emit interactiveTimeout();
   }
 
   setAwake(s.scene.ignition || interactive_timeout > 0);
