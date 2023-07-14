@@ -4,6 +4,7 @@
 
 #include <QGeoCoordinate>
 #include <QGestureEvent>
+#include <QHash>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMap>
@@ -38,14 +39,16 @@ private:
   bool error = false;
   bool is_rhd = false;
   std::vector<QLabel *> lane_labels;
+  QHash<QString, QPixmap> pixmap_cache;
 
 public:
   MapInstructions(QWidget * parent=nullptr);
+  void buildPixmapCache();
+  QString getDistance(float d);
+  void updateInstructions(cereal::NavInstruction::Reader instruction);
   void showError(QString error);
   void noError();
   void hideIfNoError();
-  QString getDistance(float d);
-  void updateInstructions(cereal::NavInstruction::Reader instruction);
 };
 
 class MapETA : public QWidget {
