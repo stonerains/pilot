@@ -80,6 +80,8 @@ def create_acc_cancel(packer, CAN, cruise_info_copy):
   values = cruise_info_copy
   values.update({
     "ACCMode": 4,
+    "aReqRaw": 0.0,
+    "aReqValue": 0.0,
   })
   return packer.make_can_msg("SCC_CONTROL", CAN.ECAN, values)
 
