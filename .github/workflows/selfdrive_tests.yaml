@@ -239,7 +239,7 @@ jobs:
                         ./system/camerad/test/ae_gray_test && \
                         coverage xml"
     - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
 
   process_replay:
     name: process replay
@@ -277,7 +277,7 @@ jobs:
       run: |
         ${{ env.RUN }} "CI=1 AZURE_TOKEN='$AZURE_TOKEN' python selfdrive/test/process_replay/test_processes.py -j$(nproc) --upload-only"
     - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
 
   test_modeld:
     name: model tests
@@ -305,7 +305,7 @@ jobs:
         ${{ env.RUN_CL }} "$UNIT_TEST selfdrive/modeld && \
                            coverage xml"
     - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
 
   test_longitudinal:
     name: longitudinal
@@ -327,7 +327,7 @@ jobs:
                         coverage xml"
       timeout-minutes: 2
     - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
     - uses: actions/upload-artifact@v2
       if: always()
       continue-on-error: true
@@ -366,7 +366,7 @@ jobs:
         NUM_JOBS: 5
         JOB_ID: ${{ matrix.job }}
     - name: "Upload coverage to Codecov"
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
 
   car_docs_diff:
     name: PR comments
