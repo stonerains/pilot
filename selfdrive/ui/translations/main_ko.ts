@@ -71,23 +71,86 @@
     <name>AnnotatedCameraWidget</name>
     <message>
         <source>km/h</source>
-        <translation>km/h</translation>
+        <translation type="vanished">km/h</translation>
     </message>
     <message>
         <source>mph</source>
-        <translation>mph</translation>
+        <translation type="vanished">mph</translation>
     </message>
     <message>
         <source>MAX</source>
-        <translation>MAX</translation>
+        <translation type="vanished">MAX</translation>
     </message>
     <message>
         <source>SPEED</source>
-        <translation>SPEED</translation>
+        <translation type="vanished">SPEED</translation>
     </message>
     <message>
         <source>LIMIT</source>
-        <translation>LIMIT</translation>
+        <translation type="vanished">LIMIT</translation>
+    </message>
+</context>
+<context>
+    <name>CommunityPanel</name>
+    <message>
+        <source>Select your car</source>
+        <translation>차량선택</translation>
+    </message>
+    <message>
+        <source>CHANGE</source>
+        <translation>변경</translation>
+    </message>
+    <message>
+        <source>SELECT</source>
+        <translation>선택</translation>
+    </message>
+    <message>
+        <source>Select a car</source>
+        <translation>차를 선택하세요</translation>
+    </message>
+    <message>
+        <source>SCC on BUS 2</source>
+        <translation>SCC가 2번 버스에 있음</translation>
+    </message>
+    <message>
+        <source>If SCC is on bus 2, turn it on.</source>
+        <translation>SCC 배선이 2번 버스에 있을 경우 체크하세요.</translation>
+    </message>
+    <message>
+        <source>Npilot controls Cruise State (Experimental)</source>
+        <translation type="vanished">크루즈 상태 제어 (실험적 기능)</translation>
+    </message>
+    <message>
+        <source>LDWS only</source>
+        <translation>LDWS 차량</translation>
+    </message>
+    <message>
+        <source>If your car only supports LDWS, turn it on.</source>
+        <translation>LDWS 전용 차량일 경우 체크하세요.</translation>
+    </message>
+    <message>
+        <source>Haptic feedback (speed-cam alert)</source>
+        <translation>스티어링 햅틱 진동 사용(카메라캠이 있을 경우)</translation>
+    </message>
+    <message>
+        <source>Haptic feedback when a speed camera is detected</source>
+        <translation>제한속도 카메라가 있으면 스티어링 휠의 진동을 사용합니다.</translation>
+    </message>
+    <message>
+        <source>Use lane lines instead of e2e</source>
+        <translation>e2e 대신 차선 사용</translation>
+    </message>
+    <message>
+        <source>Show Debug Message</source>
+        <translation>디버그 메세지 출력</translation>
+    </message>
+    <message>
+        <source>Openpilot controls cruise on/off, gap and set speed.</source>
+        <translation>차가 아닌 openpilot이 크루즈 상태를 제어합니다. (크루즈 켜기/끄기, 설정속도/유지거리 조절)</translation>
+    </message>
+    <message>
+        <source>Openpilot controls Cruise State (Experimental)</source>
+        <translation>크루즈 상태 제어</translation>
     </message>
 </context>
 <context>
@@ -114,33 +177,6 @@
     <message>
         <source>Decline, uninstall %1</source>
         <translation>거절, %1 제거</translation>
-    </message>
-</context>
-<context>
-    <name>DestinationWidget</name>
-    <message>
-        <source>Home</source>
-        <translation>집</translation>
-    </message>
-    <message>
-        <source>Work</source>
-        <translation>회사</translation>
-    </message>
-    <message>
-        <source>No destination set</source>
-        <translation>목적지가 설정되지 않았습니다</translation>
-    </message>
-    <message>
-        <source>No %1 location set</source>
-        <translation>%1 위치가 설정되지 않았습니다</translation>
-    </message>
-    <message>
-        <source>home</source>
-        <translation>집</translation>
-    </message>
-    <message>
-        <source>work</source>
-        <translation>회사</translation>
     </message>
 </context>
 <context>
@@ -266,12 +302,28 @@
         <translation>전원을 종료하려면 해제하세요</translation>
     </message>
     <message>
+        <source>Soft restart</source>
+        <translation>소프트 재시작</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to reset calibration and live params?</source>
+        <translation>캘리브레이션과 라이브 파라미터를 재설정하시겠습니까?</translation>
+    </message>
+    <message>
+        <source>Rebuild</source>
+        <translation>전체 재빌드</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to rebuild?</source>
+        <translation>전체 재빌드를 하시겠습니까?</translation>
+    </message>
+    <message>
         <source>Reset</source>
-        <translation>리셋</translation>
+        <translation>초기화</translation>
     </message>
     <message>
         <source>Review</source>
-        <translation>다시보기</translation>
+        <translation>리뷰</translation>
     </message>
 </context>
 <context>
@@ -312,11 +364,11 @@
     <name>ExperimentalModeButton</name>
     <message>
         <source>EXPERIMENTAL MODE ON</source>
-        <translation>실험적 모드 사용</translation>
+        <translation>실험 모드</translation>
     </message>
     <message>
         <source>CHILL MODE ON</source>
-        <translation>안정적 모드 사용</translation>
+        <translation>안정(CHILL) 모드</translation>
     </message>
 </context>
 <context>
@@ -336,7 +388,19 @@
     <name>Installer</name>
     <message>
         <source>Installing...</source>
-        <translation>설치중...</translation>
+        <translation type="vanished">설치중...</translation>
+    </message>
+    <message>
+        <source>Receiving objects: </source>
+        <translation type="vanished">수신중： </translation>
+    </message>
+    <message>
+        <source>Resolving deltas: </source>
+        <translation type="vanished">델타병합： </translation>
+    </message>
+    <message>
+        <source>Updating files: </source>
+        <translation type="vanished">파일갱신： </translation>
     </message>
 </context>
 <context>
@@ -382,14 +446,44 @@
     </message>
 </context>
 <context>
-    <name>MapSettings</name>
+    <name>MapPanel</name>
     <message>
-        <source>NAVIGATION</source>
-        <translation>내비게이션</translation>
+        <source>Current Destination</source>
+        <translation>현재 목적지</translation>
     </message>
     <message>
-        <source>Manage at connect.comma.ai</source>
-        <translation>connect.comma.ai에서 관리</translation>
+        <source>CLEAR</source>
+        <translation>삭제</translation>
+    </message>
+    <message>
+        <source>Recent Destinations</source>
+        <translation>최근 목적지</translation>
+    </message>
+    <message>
+        <source>Try the Navigation Beta</source>
+        <translation>네비게이션(베타)를 사용해보세요</translation>
+    </message>
+    <message>
+        <source>Get turn-by-turn directions displayed and more with a comma
+prime subscription. Sign up now: https://connect.comma.ai</source>
+        <translation>자세한 경로안내를 원하시면 comma prime을 구독하세요.
+등록：https://connect.comma.ai</translation>
+    </message>
+    <message>
+        <source>No home
+location set</source>
+        <translation>집
+설정되지않음</translation>
+    </message>
+    <message>
+        <source>No work
+location set</source>
+        <translation>회사
+설정되지않음</translation>
+    </message>
+    <message>
+        <source>no recent destinations</source>
+        <translation>최근 목적지 없음</translation>
     </message>
 </context>
 <context>
@@ -400,7 +494,7 @@
     </message>
     <message>
         <source>Waiting for GPS</source>
-        <translation>GPS 수신중 입니다</translation>
+        <translation>GPS를 기다리는 중</translation>
     </message>
 </context>
 <context>
@@ -431,63 +525,6 @@
     <message>
         <source>Wrong password</source>
         <translation>비밀번호가 틀렸습니다</translation>
-    </message>
-</context>
-<context>
-    <name>OffroadAlert</name>
-    <message>
-        <source>Immediately connect to the internet to check for updates. If you do not connect to the internet, openpilot won&apos;t engage in %1</source>
-        <translation>즉시 인터넷에 연결하여 업데이트를 확인하세요. 인터넷에 연결되어 있지 않으면 %1 이후에는 openpilot이 활성화되지 않습니다.</translation>
-    </message>
-    <message>
-        <source>Connect to internet to check for updates. openpilot won&apos;t automatically start until it connects to internet to check for updates.</source>
-        <translation>인터넷에 연결하여 업데이트를 확인하세요. openpilot은 업데이트를 확인하기 위해 인터넷에 연결할 때까지 자동으로 시작되지 않습니다.</translation>
-    </message>
-    <message>
-        <source>Unable to download updates
-%1</source>
-        <translation>업데이트를 다운로드할수 없습니다
-%1</translation>
-    </message>
-    <message>
-        <source>Invalid date and time settings, system won&apos;t start. Connect to internet to set time.</source>
-        <translation>날짜 및 시간 설정이 잘못되어 시스템이 시작되지 않습니다. 날짜와 시간을 동기화하려면 인터넷에 연결하세요.</translation>
-    </message>
-    <message>
-        <source>Taking camera snapshots. System won&apos;t start until finished.</source>
-        <translation>카메라 스냅샷 찍기가 완료될 때까지 시스템이 시작되지 않습니다.</translation>
-    </message>
-    <message>
-        <source>An update to your device&apos;s operating system is downloading in the background. You will be prompted to update when it&apos;s ready to install.</source>
-        <translation>백그라운드에서 운영 체제에 대한 업데이트를 다운로드되고 있습니다. 설치할 준비가 되면 업데이트하라는 메시지가 표시됩니다.</translation>
-    </message>
-    <message>
-        <source>Device failed to register. It will not connect to or upload to comma.ai servers, and receives no support from comma.ai. If this is an official device, visit https://comma.ai/support.</source>
-        <translation>장치를 등록하지 못했습니다. comma.ai 서버에 연결하거나 업로드하지 않으며 comma.ai에서 지원을 받지 않습니다. 공식 장치는 https://comma.ai/support로 방문하세요</translation>
-    </message>
-    <message>
-        <source>NVMe drive not mounted.</source>
-        <translation>NVMe 드라이브가 마운트되지 않았습니다.</translation>
-    </message>
-    <message>
-        <source>Unsupported NVMe drive detected. Device may draw significantly more power and overheat due to the unsupported NVMe.</source>
-        <translation>지원되지 않는 NVMe 드라이브가 감지되었습니다. 지원되지 않는 NVMe 드라이브로 인해 장치가 훨씬 더 많은 전력을 소비하고 과열될 수 있습니다.</translation>
-    </message>
-    <message>
-        <source>openpilot was unable to identify your car. Your car is either unsupported or its ECUs are not recognized. Please submit a pull request to add the firmware versions to the proper vehicle. Need help? Join discord.comma.ai.</source>
-        <translation>opepilot이 차량을 식별할수 없었습니다. 지원되지 않는 차량이거나 ECU가 인식되지 않습니다. 해당 차량에 펌웨어 버전을 추가하려면 PR을 제출하십시오. 도움이 필요하시면 discord.comma.ai에 가입하세요.</translation>
-    </message>
-    <message>
-        <source>openpilot was unable to identify your car. Check integrity of cables and ensure all connections are secure, particularly that the comma power is fully inserted in the OBD-II port of the vehicle. Need help? Join discord.comma.ai.</source>
-        <translation>openpilot이 차량을 식별할수 없었습니다. 케이블의 무결성을 점검하고 모든 연결부, 특히 comma power가 차량의 OBD-II 포트에 완전히 삽입되었는지 확인하세요. 도움이 필요하시면 discord.comma.ai에 가입하세요.</translation>
-    </message>
-    <message>
-        <source>openpilot detected a change in the device&apos;s mounting position. Ensure the device is fully seated in the mount and the mount is firmly secured to the windshield.</source>
-        <translation>openpilot이 장치의 장착 위치 변경을 감지했습니다. 장치가 마운트에 완전히 장착되고 마운트가 앞유리에 단단히 고정되었는지 확인하십시오. </translation>
-    </message>
-    <message>
-        <source>Device temperature too high. System cooling down before starting. Current internal component temperature: %1</source>
-        <translation>장치 온도가 너무 높습니다. 시작하기 전에 장치온도를 낮춰주세요. 현재 내부 구성 요소 온도: %1</translation>
     </message>
 </context>
 <context>
@@ -539,11 +576,11 @@
     <name>PrimeAdWidget</name>
     <message>
         <source>Upgrade Now</source>
-        <translation>지금 업그레이드 하세요</translation>
+        <translation>지금 업그레이드</translation>
     </message>
     <message>
         <source>Become a comma prime member at connect.comma.ai</source>
-        <translation>connect.comma.ai 접속하여 comma prime에 가입하세요</translation>
+        <translation>connect.comma.ai에서 comma prime에 가입합니다</translation>
     </message>
     <message>
         <source>PRIME FEATURES:</source>
@@ -555,15 +592,15 @@
     </message>
     <message>
         <source>24/7 LTE connectivity</source>
-        <translation>항상 LTE 연결</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Turn-by-turn navigation</source>
-        <translation>내비게이션 경로안내</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>1 year of drive storage</source>
-        <translation>1년간 저장</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -618,48 +655,64 @@
     <name>Reset</name>
     <message>
         <source>Reset failed. Reboot to try again.</source>
-        <translation>초기화 실패. 재부팅후 다시 시도하세요.</translation>
+        <translation type="vanished">초기화 실패. 재부팅후 다시 시도하세요.</translation>
     </message>
     <message>
         <source>Are you sure you want to reset your device?</source>
-        <translation>장치를 초기화 하시겠습니까?</translation>
+        <translation type="vanished">장치를 초기화 하시겠습니까?</translation>
+    </message>
+    <message>
+        <source>Resetting device...</source>
+        <translation type="vanished">장치 초기화중...</translation>
     </message>
     <message>
         <source>System Reset</source>
-        <translation>장치 초기화</translation>
+        <translation type="vanished">장치 초기화</translation>
+    </message>
+    <message>
+        <source>System reset triggered. Press confirm to erase all content and settings. Press cancel to resume boot.</source>
+        <translation type="vanished">장치를 초기화 합니다. 확인버튼을 누르면 모든 내용과 설정이 초기화됩니다. 부팅을 재개하려면 취소를 누르세요.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>취소</translation>
+        <translation type="vanished">취소</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation>재부팅</translation>
+        <translation type="vanished">재부팅</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation>확인</translation>
+        <translation type="vanished">확인</translation>
     </message>
     <message>
-        <source>Unable to mount data partition. Partition may be corrupted. Press confirm to erase and reset your device.</source>
-        <translation>데이터 파티션을 마운트할 수 없습니다. 파티션이 손상되었을 수 있습니다. 장치를 초기화하려면 확인을 누르세요.</translation>
+        <source>Unable to mount data partition. Press confirm to reset your device.</source>
+        <translation type="vanished">데이터 파티션을 마운트할 수 없습니다. 확인 버튼을 눌러 장치를 리셋합니다.</translation>
+    </message>
+</context>
+<context>
+    <name>RichTextDialog</name>
+    <message>
+        <source>Ok</source>
+        <translation type="vanished">확인</translation>
+    </message>
+</context>
+<context>
+    <name>SelectCar</name>
+    <message>
+        <source>Back</source>
+        <translation>뒤로</translation>
     </message>
     <message>
-        <source>Press confirm to erase all content and settings. Press cancel to resume boot.</source>
-        <translation>모든 콘텐츠와 설정을 지우려면 확인을 누르세요. 부팅을 재개하려면 취소를 누르세요.</translation>
-    </message>
-    <message>
-        <source>Resetting device...
-This may take up to a minute.</source>
-        <translation>장치 초기화 중...
-최대 1분이 소요될 수 있습니다.</translation>
+        <source>[ Not selected ]</source>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>SettingsWindow</name>
     <message>
         <source>×</source>
-        <translation>×</translation>
+        <translation type="vanished">×</translation>
     </message>
     <message>
         <source>Device</source>
@@ -677,84 +730,100 @@ This may take up to a minute.</source>
         <source>Software</source>
         <translation>소프트웨어</translation>
     </message>
+    <message>
+        <source>Navigation</source>
+        <translation>네비게이션</translation>
+    </message>
+    <message>
+        <source>← Back</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Community</source>
+        <translation>커뮤니티</translation>
+    </message>
 </context>
 <context>
     <name>Setup</name>
     <message>
         <source>WARNING: Low Voltage</source>
-        <translation>경고: 전압이 낮습니다</translation>
+        <translation type="vanished">경고: 전압이 낮습니다</translation>
     </message>
     <message>
         <source>Power your device in a car with a harness or proceed at your own risk.</source>
-        <translation>하네스 보드에 차량의 전원을 연결하세요.</translation>
+        <translation type="vanished">하네스 보드에 차량의 전원을 연결하세요.</translation>
     </message>
     <message>
         <source>Power off</source>
-        <translation>전원 종료</translation>
+        <translation type="vanished">전원 종료</translation>
     </message>
     <message>
         <source>Continue</source>
-        <translation>계속</translation>
+        <translation type="vanished">계속</translation>
     </message>
     <message>
         <source>Getting Started</source>
-        <translation>설정 시작</translation>
+        <translation type="vanished">설정 시작</translation>
     </message>
     <message>
         <source>Before we get on the road, let’s finish installation and cover some details.</source>
-        <translation>출발하기 전에 설정을 완료하고 몇 가지 세부 사항을 살펴보겠습니다.</translation>
+        <translation type="vanished">출발하기 전에 설정을 완료하고 몇 가지 세부 사항을 살펴보겠습니다.</translation>
     </message>
     <message>
         <source>Connect to Wi-Fi</source>
-        <translation>wifi 연결</translation>
+        <translation type="vanished">wifi 연결</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation>뒤로</translation>
+        <translation type="vanished">뒤로</translation>
     </message>
     <message>
         <source>Continue without Wi-Fi</source>
-        <translation>wifi 연결없이 계속하기</translation>
+        <translation type="vanished">wifi 연결없이 계속하기</translation>
     </message>
     <message>
         <source>Waiting for internet</source>
-        <translation>인터넷 대기중</translation>
+        <translation type="vanished">네트워크 접속을 기다립니다</translation>
+    </message>
+    <message>
+        <source>Choose Software to Install</source>
+        <translation type="vanished">설치할 소프트웨어를 선택하세요</translation>
+    </message>
+    <message>
+        <source>Dashcam</source>
+        <translation type="vanished">Dashcam</translation>
+    </message>
+    <message>
+        <source>Custom Software</source>
+        <translation type="vanished">Custom Software</translation>
     </message>
     <message>
         <source>Enter URL</source>
-        <translation>URL 입력</translation>
+        <translation type="vanished">URL 입력</translation>
     </message>
     <message>
         <source>for Custom Software</source>
-        <translation>for Custom Software</translation>
+        <translation type="vanished">for Custom Software</translation>
     </message>
     <message>
         <source>Downloading...</source>
-        <translation>다운로드중...</translation>
+        <translation type="vanished">다운로드중...</translation>
     </message>
     <message>
         <source>Download Failed</source>
-        <translation>다운로드 실패</translation>
+        <translation type="vanished">다운로드 실패</translation>
     </message>
     <message>
         <source>Ensure the entered URL is valid, and the device’s internet connection is good.</source>
-        <translation>입력된 URL이 유효하고 장치의 인터넷 연결이 양호한지 확인하세요.</translation>
+        <translation type="vanished">입력된 URL이 유효하고 장치의 네트워크 연결이 잘 되어 있는지 확인하세요.</translation>
     </message>
     <message>
         <source>Reboot device</source>
-        <translation>재부팅</translation>
+        <translation type="vanished">재부팅</translation>
     </message>
     <message>
         <source>Start over</source>
-        <translation>다시 시작</translation>
-    </message>
-    <message>
-        <source>Something went wrong. Reboot the device.</source>
-        <translation>문제가 발생했습니다. 장치를 재부팅하세요.</translation>
-    </message>
-    <message>
-        <source>No custom software found at this URL.</source>
-        <translation>이 URL에서 커스텀 소프트웨어를 찾을 수 없습니다.</translation>
+        <translation type="vanished">다시 시작</translation>
     </message>
 </context>
 <context>
@@ -911,23 +980,23 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>failed to check for update</source>
-        <translation>업데이트 확인 실패</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>up to date, last checked %1</source>
-        <translation>최신 상태, 마지막으로 확인 %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>DOWNLOAD</source>
-        <translation>다운로드</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>update available</source>
-        <translation>업데이트 가능</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>never</source>
-        <translation>업데이트 안함</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1030,6 +1099,18 @@ This may take up to a minute.</source>
         <translation>운전자 카메라에서 데이터를 업로드하고 운전자 모니터링 알고리즘을 개선합니다.</translation>
     </message>
     <message>
+        <source>Experimental openpilot Longitudinal Control</source>
+        <translation>openpilot 롱컨트롤 (실험적)</translation>
+    </message>
+    <message>
+        <source>openpilot longitudinal control is not currently available for this car.</source>
+        <translation type="vanished">현재 이 차량에는 openpilot 롱컨트롤을 사용할 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Enable experimental longitudinal control to enable this.</source>
+        <translation type="vanished">openpilot 롱컨트롤을 활성화합니다. (실험적)</translation>
+    </message>
+    <message>
         <source>Disengage on Accelerator Pedal</source>
         <translation>가속페달 조작시 해제</translation>
     </message>
@@ -1055,19 +1136,35 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>Experimental Mode</source>
-        <translation>실험적 모드</translation>
+        <translation>실험 모드</translation>
+    </message>
+    <message>
+        <source>    openpilot defaults to driving in &lt;b&gt;chill mode&lt;/b&gt;.    Experimental mode enables &lt;b&gt;alpha-level features&lt;/b&gt; that aren&apos;t ready for chill mode.     Experimental features are listed below:    &lt;br&gt;     &lt;h4&gt;🌮 End-to-End Longitudinal Control 🌮&lt;/h4&gt;     Let the driving model control the gas and brakes. openpilot will drive as it thinks a human would, including stopping for red lights and stop signs. Since the driving model decides which speed to drive, the set speed will only act as an upper bound.</source>
+        <translation type="vanished">오픈파일럿은 기본적으로 &lt;b&gt;chill 모드&lt;/b&gt;로 동작합니다. 실험 모드는 chill 모드가 아닌 &lt;b&gt;알파수준&lt;/b&gt;의 기능들입니다.&lt;br&gt;실험적 기능은 아래와 같습니다.&lt;br&gt;&lt;br&gt;&lt;h4&gt;🌮 End-to-End(종단간) 롱컨트롤 🌮&lt;/h4&gt;&lt;br&gt;모델이 가감속을 수행하며 적색 신호등및 정지 신호에 대한 감속및 정지를 포함하여 사람처럼 운전합니다.&lt;br&gt;모델이 주행할 속도를 결정하므로 설정된 속도는 상한선으로만 작용합니다.</translation>
+    </message>
+    <message>
+        <source>openpilot defaults to the car&apos;s built-in ACC instead of openpilot&apos;s longitudinal control on this car. Enable this to switch to openpilot longitudinal control.</source>
+        <translation type="vanished">openpilot은 차량의 내장 ACC로 기본 설정됩니다. 롱컨트롤으로 전환하려면 이 옵션을 활성화하세요.</translation>
+    </message>
+    <message>
+        <source>WARNING: openpilot longitudinal control is experimental for this car and will disable Automatic Emergency Braking (AEB).</source>
+        <translation>경고: openpilot long control은 실험적 기능이며 차량의 AEB(긴급제동)이 비활성화됩니다.</translation>
+    </message>
+    <message>
+        <source>On this car, openpilot defaults to the car&apos;s built-in ACC instead of openpilot&apos;s longitudinal control. Enable this to switch to openpilot longitudinal control. Enabling Experimental mode is recommended when using experimental openpilot longitudinal control.</source>
+        <translation>이 차량은 openpilot 롱컨트롤 대신 차량의 내장 ACC로 기본 설정됩니다. openpilot 롱컨트롤을 사용하려면 이 옵션을 활성화하세요. 실험적 openpilot 롱컨트롤을 사용하는 경우 실험적 모드를 활성화 하세요.</translation>
     </message>
     <message>
         <source>openpilot defaults to driving in &lt;b&gt;chill mode&lt;/b&gt;. Experimental mode enables &lt;b&gt;alpha-level features&lt;/b&gt; that aren&apos;t ready for chill mode. Experimental features are listed below:</source>
-        <translation>openpilot은 기본적으로 &lt;b&gt;안정적 모드&lt;/b&gt;로 주행합니다. 실험적 모드는 안정적 모드에 준비되지 않은 &lt;b&gt;알파 수준 기능&lt;/b&gt;을 활성화 합니다. 실험적 모드의 특징은 아래에 나열되어 있습니다</translation>
+        <translation>openpilot은 기본적으로 &lt;b&gt;안정적(chill) 모드&lt;/b&gt;로 주행합니다. 실험적 모드는 안정적 모드에 준비되지 않은 &lt;b&gt;알파 수준 기능&lt;/b&gt;을 활성화 합니다. 실험 모드의 특징은 아래와 같습니다.</translation>
     </message>
     <message>
         <source>🌮 End-to-End Longitudinal Control 🌮</source>
-        <translation>🌮 E2E 롱컨트롤 🌮</translation>
+        <translation>End to End 롱컨트롤</translation>
     </message>
     <message>
         <source>Let the driving model control the gas and brakes. openpilot will drive as it thinks a human would, including stopping for red lights and stop signs. Since the driving model decides the speed to drive, the set speed will only act as an upper bound. This is an alpha quality feature; mistakes should be expected.</source>
-        <translation>주행모델이 가속과 감속을 제어하도록 합니다. openpilot은 신호등과 정지표지판을 보고 멈추는 것을 포함하여 운전자가 생각하는것처럼 주행합니다. 주행 모델이 주행할 속도를 결정하므로 설정된 속도는 상한선으로만 작용합니다. 이것은 알파 기능이므로 사용에 주의해야 합니다.</translation>
+        <translation>주행 모델이 가스와 브레이크를 제어합니다. openpilot은 적색 신호등과 정지 신호에 대한 정지를 포함하여 사람처럼 운전합니다. 주행 속도는 주행 모델에 따라 결정되므로 설정된 속도는 상한선으로만 작용합니다. 이것은 알파 품질 기능입니다. 실수가 있을 수도 있다는걸 인지해야 합니다.</translation>
     </message>
     <message>
         <source>New Driving Visualization</source>
@@ -1075,98 +1172,50 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>The driving visualization will transition to the road-facing wide-angle camera at low speeds to better show some turns. The Experimental mode logo will also be shown in the top right corner.</source>
-        <translation>주행 시각화는 저속에서 도로를 향하는 광각 카메라로 전환되어 일부 회전을 더 잘 보여줍니다. 실험적 모드의 로고도 우측상단에 표시됩니다.</translation>
+        <translation>운전 시각화는 저속으로 도로를 향한 광각 카메라로 전환되어 일부 회전을 더 잘 보여줍니다. 실험 모드 로고도 오른쪽 상단에 표시됩니다.</translation>
     </message>
     <message>
-        <source>Experimental mode is currently unavailable on this car since the car&apos;s stock ACC is used for longitudinal control.</source>
-        <translation>차량에 장착된 ACC가 롱컨트롤에 사용되기 때문에 현재 이 차량은 실험적 모드를 사용할 수 없습니다.</translation>
+        <source>Experimental mode is currently unavailable on this car, since the car&apos;s stock ACC is used for longitudinal control.</source>
+        <translation>차량의 순정 ACC가 사용되기 때문에 현재 이 차량에서는 실험 모드를 사용할 수 없습니다.</translation>
     </message>
     <message>
-        <source>openpilot longitudinal control may come in a future update.</source>
-        <translation>오픈파일럿 롱컨트롤은 향후 업데이트에서 제공될 수 있습니다.</translation>
-    </message>
-    <message>
-        <source>openpilot Longitudinal Control (Alpha)</source>
-        <translation>openpilot 롱컨트롤 (알파)</translation>
-    </message>
-    <message>
-        <source>WARNING: openpilot longitudinal control is in alpha for this car and will disable Automatic Emergency Braking (AEB).</source>
-        <translation>경고: openpilot 롱컨트롤은 알파 기능으로 차량의 자동긴급제동(AEB)를 비활성화합니다.</translation>
-    </message>
-    <message>
-        <source>On this car, openpilot defaults to the car&apos;s built-in ACC instead of openpilot&apos;s longitudinal control. Enable this to switch to openpilot longitudinal control. Enabling Experimental mode is recommended when enabling openpilot longitudinal control alpha.</source>
-        <translation>이 차량은 openpilot 롱컨트롤 대신 차량의 내장 ACC로 기본 설정됩니다. openpilot 롱컨트롤으로 전환하려면 이 기능을 활성화하세요. openpilot 롱컨트롤 알파를 활성화하는경우 실험적 모드 활성화를 권장합니다.</translation>
-    </message>
-    <message>
-        <source>Aggressive</source>
-        <translation>공격적</translation>
-    </message>
-    <message>
-        <source>Standard</source>
-        <translation>표준</translation>
-    </message>
-    <message>
-        <source>Relaxed</source>
-        <translation>편안한</translation>
-    </message>
-    <message>
-        <source>Driving Personality</source>
-        <translation>주행 모드</translation>
-    </message>
-    <message>
-        <source>Standard is recommended. In aggressive mode, openpilot will follow lead cars closer and be more aggressive with the gas and brake. In relaxed mode openpilot will stay further away from lead cars.</source>
-        <translation>표준 모드를 권장합니다. 공격적 모드에서는 openpilot은 앞차를 더 가까이 따라가며 가속과 감속을 더 공격적으로 사용합니다. 편안한 모드에서 openpilot은 선두 차량에서 더 멀리 떨어져 있습니다.</translation>
-    </message>
-    <message>
-        <source>An alpha version of openpilot longitudinal control can be tested, along with Experimental mode, on non-release branches.</source>
-        <translation>openpilot 롱컨 제어의 알파 버전은 비 릴리스 분기에서 실험 모드와 함께 테스트할 수 있습니다.</translation>
-    </message>
-    <message>
-        <source>Navigate on openpilot</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When navigation has a destination, openpilot will input the map information into the model. This generally improves behavior and allows openpilot to keep left or right appropriately at forks/exits and take turns. Lane change behavior is unchanged and still activated by the driver. This is an alpha quality feature; mistakes should be expected.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable the openpilot longitudinal control (alpha) toggle to allow Experimental mode.</source>
-        <translation type="unfinished"></translation>
+        <source>Enable experimental longitudinal control to allow experimental mode.</source>
+        <translation>실험 모드를 허용하려면 실험 롱컨트롤을 사용으로 설정하세요.</translation>
     </message>
 </context>
 <context>
     <name>Updater</name>
     <message>
         <source>Update Required</source>
-        <translation>업데이트 필요</translation>
+        <translation type="vanished">업데이트 필요</translation>
     </message>
     <message>
         <source>An operating system update is required. Connect your device to Wi-Fi for the fastest update experience. The download size is approximately 1GB.</source>
-        <translation>OS 업데이트가 필요합니다. 장치를 wifi에 연결하면 가장 빠른 업데이트 경험을 제공합니다. 다운로드 크기는 약 1GB입니다.</translation>
+        <translation type="vanished">OS 업데이트가 필요합니다. 장치를 wifi에 연결하면 가장 빠른 업데이트 경험을 제공합니다. 다운로드 크기는 약 1GB입니다.</translation>
     </message>
     <message>
         <source>Connect to Wi-Fi</source>
-        <translation>wifi 연결</translation>
+        <translation type="vanished">wifi 연결</translation>
     </message>
     <message>
         <source>Install</source>
-        <translation>설치</translation>
+        <translation type="vanished">설치</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation>뒤로</translation>
+        <translation type="vanished">뒤로</translation>
     </message>
     <message>
         <source>Loading...</source>
-        <translation>로딩중...</translation>
+        <translation type="vanished">로딩중...</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation>재부팅</translation>
+        <translation type="vanished">재부팅</translation>
     </message>
     <message>
         <source>Update failed</source>
-        <translation>업데이트 실패</translation>
+        <translation type="vanished">업데이트 실패</translation>
     </message>
 </context>
 <context>
