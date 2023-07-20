@@ -76,7 +76,6 @@ private:
 
   QMapboxGLSettings m_settings;
   QScopedPointer<QMapboxGL> m_map;
-  QMapbox::AnnotationID marker_id = -1;
 
   void initLayers();
 
