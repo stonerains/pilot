@@ -496,6 +496,10 @@ location set</source>
         <source>Waiting for GPS</source>
         <translation>GPS를 기다리는 중</translation>
     </message>
+    <message>
+        <source>Waiting for internet</source>
+        <translation type="unfinished">인터넷 대기중</translation>
+    </message>
 </context>
 <context>
     <name>MultiOptionDialog</name>
