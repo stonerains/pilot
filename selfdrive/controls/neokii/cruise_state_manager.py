@@ -5,7 +5,7 @@ from selfdrive.car import create_button_event
 from common.conversions import Conversions as CV
 from common.params import Params, put_nonblocking
 from selfdrive.car.hyundai.values import CANFD_CAR
-from selfdrive.controls.lib.drive_helpers import V_CRUISE_MAX, V_CRUISE_INITIAL
+from selfdrive.controls.lib.drive_helpers import V_CRUISE_MAX, V_CRUISE_ENABLE_MIN
 
 V_CRUISE_MIN_CRUISE_STATE = 10
 
@@ -35,7 +35,7 @@ class CruiseStateManager:
 
     self.available = False
     self.enabled = False
-    self.speed = V_CRUISE_INITIAL * CV.KPH_TO_MS
+    self.speed = V_CRUISE_ENABLE_MIN * CV.KPH_TO_MS
     gap = Params().get('SccGapAdjust')
     self.gapAdjust = int(gap) if gap is not None else 4
     if self.gapAdjust < 1 or self.gapAdjust > 4:
@@ -165,13 +165,13 @@ class CruiseStateManager:
           self.cruise_auto = True 	# CRZ AUTO-SET by Tenesi
           v_cruise_kph = CS.vEgoCluster * CV.MS_TO_KPH
           if CS.vEgoCluster < 0.1:
-            v_cruise_kph = clip(round(v_cruise_kph, 1), V_CRUISE_INITIAL, V_CRUISE_MAX)
+            v_cruise_kph = clip(round(v_cruise_kph, 1), V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)
           else:
             v_cruise_kph = clip(round(v_cruise_kph, 1), V_CRUISE_MIN_CRUISE_STATE, V_CRUISE_MAX)
         elif btn == ButtonType.accelCruise and not self.enabled:
           self.enabled = True
           self.cruise_auto = True 	# CRZ AUTO-SET by Tenesi
-          v_cruise_kph = clip(round(self.speed * CV.MS_TO_KPH, 1), V_CRUISE_INITIAL, V_CRUISE_MAX)
+          v_cruise_kph = clip(round(self.speed * CV.MS_TO_KPH, 1), V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)
           v_cruise_kph = clip(v_cruise_kph, round(CS.vEgoCluster * CV.MS_TO_KPH, 1), V_CRUISE_MAX)
 
     if btn == ButtonType.gapAdjustCruise and not self.btn_long_pressed:

@@ -4,7 +4,7 @@ import numpy as np
 from common.numpy_fast import clip, interp
 from cereal import car
 from common.conversions import Conversions as CV
-from selfdrive.controls.lib.drive_helpers import V_CRUISE_MIN, V_CRUISE_MAX, V_CRUISE_INITIAL, V_CRUISE_UNSET
+from selfdrive.controls.lib.drive_helpers import V_CRUISE_MIN, V_CRUISE_MAX, V_CRUISE_ENABLE_MIN, V_CRUISE_UNSET
 from selfdrive.controls.radard import RADAR_TO_CAMERA
 from selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager, V_CRUISE_DELTA_KM, V_CRUISE_DELTA_MI, \
   V_CRUISE_MIN_CRUISE_STATE
@@ -272,7 +272,7 @@ class SpeedController:
       if b.type in (ButtonType.accelCruise, ButtonType.resumeCruise) and v_cruise_last < 250:
         return v_cruise_last
 
-    return int(round(clip(v_ego * CV.MS_TO_KPH, V_CRUISE_INITIAL, V_CRUISE_MAX)))
+    return int(round(clip(v_ego * CV.MS_TO_KPH, V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)))
 
   def update_v_cruise(self, CS, sm, enabled, is_metric, v_cruise_kph, v_cruise_kph_last):  # called by controlds's state_transition
 
@@ -386,7 +386,7 @@ class SpeedController:
         elif self.prev_button == ButtonType.decelCruise:
           v_cruise_kph -= V_CRUISE_DELTA - -v_cruise_kph % V_CRUISE_DELTA
         self.button_count %= 70
-      v_cruise_kph = clip(v_cruise_kph, V_CRUISE_INITIAL, V_CRUISE_MAX)
+      v_cruise_kph = clip(v_cruise_kph, V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)
 
     return v_cruise_kph
 
