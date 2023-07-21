@@ -207,7 +207,7 @@ void MapWindow::updateState(const UIState &s) {
   if (!locationd_valid) {
     setError(tr("Waiting for GPS"));
   } else if (routing_problem) {
-    setError(tr("Waiting for internet"));
+    setError(tr("Waiting for route"));
   } else {
     setError("");
   }
@@ -239,6 +239,7 @@ void MapWindow::updateState(const UIState &s) {
     // an invalid navInstruction packet with a nav destination is only possible if:
     // - API exception/no internet
     // - route response is empty
+    // - any time navd is waiting for recompute_countdown
     auto dest = coordinate_from_param("NavDestination");
     routing_problem = !sm.valid("navInstruction") && dest.has_value();
 

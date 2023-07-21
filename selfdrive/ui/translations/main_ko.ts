@@ -497,8 +497,8 @@ location set</source>
         <translation>GPS를 기다리는 중</translation>
     </message>
     <message>
-        <source>Waiting for internet</source>
-        <translation type="unfinished">인터넷 대기중</translation>
+        <source>Waiting for route</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
