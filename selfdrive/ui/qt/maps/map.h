@@ -20,7 +20,6 @@
 #include "common/params.h"
 #include "common/util.h"
 #include "selfdrive/ui/ui.h"
-#include "selfdrive/ui/qt/widgets/controls.h"
 #include "selfdrive/ui/qt/maps/map_eta.h"
 #include "selfdrive/ui/qt/maps/map_instructions.h"
 

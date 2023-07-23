@@ -596,11 +596,11 @@ location set</source>
     </message>
     <message>
         <source>24/7 LTE connectivity</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Turn-by-turn navigation</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>1 year of drive storage</source>
@@ -984,7 +984,7 @@ location set</source>
     </message>
     <message>
         <source>failed to check for update</source>
-        <translation type="unfinished"></translation>
+        <translation>업데이트 확인에 실패하였습니다</translation>
     </message>
     <message>
         <source>up to date, last checked %1</source>
@@ -992,11 +992,11 @@ location set</source>
     </message>
     <message>
         <source>DOWNLOAD</source>
-        <translation type="unfinished"></translation>
+        <translation>다운로드</translation>
     </message>
     <message>
         <source>update available</source>
-        <translation type="unfinished"></translation>
+        <translation>업데이트 가능</translation>
     </message>
     <message>
         <source>never</source>
