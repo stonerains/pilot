@@ -44,7 +44,7 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
   overlay_layout->addStretch(1);
   overlay_layout->addWidget(map_eta);
 
-  if(Params().getBool("UseExternalNaviRoutes")) settings_btn->hide();
+  //if(Params().getBool("UseExternalNaviRoutes")) settings_btn->hide();
 
   auto last_gps_position = coordinate_from_param("LastGPSPosition");
   if (last_gps_position.has_value()) {
