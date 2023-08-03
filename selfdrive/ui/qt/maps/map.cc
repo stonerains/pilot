@@ -8,7 +8,6 @@
 #include "selfdrive/ui/qt/maps/map_helpers.h"
 #include "selfdrive/ui/qt/util.h"
 #include "selfdrive/ui/ui.h"
-#include "common/params.h"
 
 
 const int PAN_TIMEOUT = 100;
@@ -43,8 +42,6 @@ MapWindow::MapWindow(const QMapboxGLSettings &settings) : m_settings(settings), 
   overlay_layout->addWidget(map_instructions);
   overlay_layout->addStretch(1);
   overlay_layout->addWidget(map_eta);
-
-  //if(Params().getBool("UseExternalNaviRoutes")) settings_btn->hide();
 
   auto last_gps_position = coordinate_from_param("LastGPSPosition");
   if (last_gps_position.has_value()) {

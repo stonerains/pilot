@@ -52,7 +52,6 @@ private:
   bool engageable;
 };
 
-
 class MapSettingsButton : public QPushButton {
   Q_OBJECT
 
@@ -94,6 +93,7 @@ protected:
   ExperimentalButton *experimental_btn;
   bool dmActive = false;
   bool hideBottomIcons = false;
+  bool rightHandDM = false;
   QPixmap dm_img;
   float dm_fade_state = 1.0;
 
