@@ -21,8 +21,9 @@ class TestAmplifier(unittest.TestCase):
     # clear dmesg
     subprocess.check_call("sudo dmesg -C", shell=True)
 
+    HARDWARE.reset_internal_panda()
+    Panda.wait_for_panda(None, 30)
     self.panda = Panda()
-    self.panda.reset()
 
   def tearDown(self):
     HARDWARE.reset_internal_panda()
@@ -39,7 +40,7 @@ class TestAmplifier(unittest.TestCase):
 
   def test_init(self):
     amp = Amplifier(debug=True)
-    r = amp.initialize_configuration(Tici().model)
+    r = amp.initialize_configuration(Tici().get_device_type())
     assert r
     assert self._check_for_i2c_errors(False)
 
@@ -61,7 +62,7 @@ class TestAmplifier(unittest.TestCase):
       time.sleep(random.randint(0, 5))
 
       amp = Amplifier(debug=True)
-      r = amp.initialize_configuration(Tici().model)
+      r = amp.initialize_configuration(Tici().get_device_type())
       assert r
 
       if self._check_for_i2c_errors(True):
