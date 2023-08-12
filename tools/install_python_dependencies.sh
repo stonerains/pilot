@@ -2,7 +2,8 @@
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-cd $DIR
+ROOT=$DIR/../
+cd $ROOT
 
 RC_FILE="${HOME}/.$(basename ${SHELL})rc"
 if [ "$(uname)" == "Darwin" ] && [ $SHELL == "/bin/bash" ]; then
@@ -32,7 +33,7 @@ fi
 
 export MAKEFLAGS="-j$(nproc)"
 
-PYENV_PYTHON_VERSION=$(cat .python-version)
+PYENV_PYTHON_VERSION=$(cat $ROOT/.python-version)
 if ! pyenv prefix ${PYENV_PYTHON_VERSION} &> /dev/null; then
   # no pyenv update on mac
   if [ "$(uname)" == "Linux" ]; then
@@ -45,35 +46,25 @@ fi
 eval "$(pyenv init --path)"
 
 echo "update pip"
-pip install pip==22.3.1
-pip install poetry==1.2.2
+pip install pip==23.2.1
+pip install poetry==1.5.1
 
 poetry config virtualenvs.prefer-active-python true --local
 
-POETRY_INSTALL_ARGS=""
-if [ -d "./xx" ] || [ -n "$XX" ]; then
-  echo "WARNING: using xx dependency group, installing globally"
-  poetry config virtualenvs.create false --local
-  POETRY_INSTALL_ARGS="--with xx --sync"
-fi
+echo "PYTHONPATH=${PWD}" > $ROOT/.env
+poetry self add poetry-dotenv-plugin@^0.1.0
 
 echo "pip packages install..."
-poetry install --no-cache --no-root $POETRY_INSTALL_ARGS
+poetry install --no-cache --no-root
 pyenv rehash
 
-if [ -d "./xx" ] || [ -n "$POETRY_VIRTUALENVS_CREATE" ]; then
-  RUN=""
-else
-  echo "PYTHONPATH=${PWD}" > .env
-  poetry self add poetry-dotenv-plugin@^0.1.0
-  RUN="poetry run"
-fi
+[ -n "$POETRY_VIRTUALENVS_CREATE" ] && RUN="" || RUN="poetry run"
 
 if [ "$(uname)" != "Darwin" ]; then
   echo "pre-commit hooks install..."
   shopt -s nullglob
   for f in .pre-commit-config.yaml */.pre-commit-config.yaml; do
-    if [ -e "$DIR/$(dirname $f)/.git" ]; then
+    if [ -e "$ROOT/$(dirname $f)/.git" ]; then
       $RUN pre-commit install -c "$f"
     fi
   done
