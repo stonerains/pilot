@@ -88,8 +88,8 @@ void MapInstructions::updateInstructions(cereal::NavInstruction::Reader instruct
   distance->setText(getDistance(instruction.getManeuverDistance()));
 
   // Show arrow with direction
-  QString type = QString::fromStdString(instruction.getManeuverType());
-  /*QString modifier = QString::fromStdString(instruction.getManeuverModifier());
+  /*QString type = QString::fromStdString(instruction.getManeuverType());
+  QString modifier = QString::fromStdString(instruction.getManeuverModifier());
   if (!type.isEmpty()) {
     QString fn = "direction_" + type;
     if (!modifier.isEmpty()) {
@@ -113,11 +113,6 @@ void MapInstructions::updateInstructions(cereal::NavInstruction::Reader instruct
   for (int i = 0; i < lanes.size(); ++i) {
     bool active = lanes[i].getActive();
     const auto active_direction = lanes[i].getActiveDirection();
-
-    // active direction has precedence
-    const auto active_direction = lanes[i].getActiveDirection();
-    bool active_left = active_direction == cereal::NavInstruction::Direction::LEFT;
-    bool active_right = active_direction == cereal::NavInstruction::Direction::RIGHT;
 
     // TODO: Make more images based on active direction and combined directions
     QString fn = "lane_direction_";
