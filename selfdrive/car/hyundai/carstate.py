@@ -402,20 +402,7 @@ class CarState(CarStateBase):
       if CP.flags & HyundaiFlags.USE_FCA.value:
         messages.append(("FCA11", 50))
 
-      # for activate HDA
-      if CP.hasHda or CP.carFingerprint in CAN_GEARS["has_hda"]:
-        signals += [
-          ("HDA_USM", "LFAHDA_MFC"),
-          ("HDA_Active", "LFAHDA_MFC"),
-          ("HDA_Icon_State", "LFAHDA_MFC"),
-          ("HDA_LdwSysState", "LFAHDA_MFC"),
-          ("HDA_Icon_Wheel", "LFAHDA_MFC"),
-          ("HDA_Chime", "LFAHDA_MFC"),
-          ("HDA_VSetReq", "LFAHDA_MFC"),
-        ]
-        checks += [("LFAHDA_MFC", 20)]
-
-    return CANParser(DBC[CP.carFingerprint]["pt"], signals, checks, messages, 2, enforce_checks=False)
+    return CANParser(DBC[CP.carFingerprint]["pt"], messages, 2)
 
   @staticmethod
   def get_can_parser_canfd(CP):
