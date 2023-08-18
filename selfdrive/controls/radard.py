@@ -144,7 +144,7 @@ def match_vision_to_track(v_ego: float, lead: capnp._DynamicStructReader, tracks
 
   # if no 'sane' match is found return -1
   # stationary radar points can be false positives
-  dist_sane = abs(track.dRel - offset_vision_dist) < max([(offset_vision_dist)*.25, 5.0])
+  dist_sane = abs(track.dRel - offset_vision_dist) < max([(offset_vision_dist)*.3, 5.0])
   vel_sane = (abs(track.vRel + v_ego - lead.v[0]) < 10) or (v_ego + track.vRel > 3)
   if dist_sane and vel_sane:
     return track
@@ -173,7 +173,7 @@ def get_RadarState_from_vision(lead_msg: capnp._DynamicStructReader, v_ego: floa
 def get_lead(v_ego: float, ready: bool, tracks: Dict[int, Track], lead_msg: capnp._DynamicStructReader,
              model_v_ego: float, low_speed_override: bool = True) -> Dict[str, Any]:
   # Determine leads, this is where the essential logic happens
-  lead_msg_empty = any([len(c) == 0 for c in [lead_msg.x, lead_msg.y, lead_msg.v]])
+  lead_msg_empty = any(len(c) == 0 for c in [lead_msg.x, lead_msg.y, lead_msg.v])
   if len(tracks) > 0 and ready and not lead_msg_empty and lead_msg.prob > .5:
     track = match_vision_to_track(v_ego, lead_msg, tracks)
   else:
