@@ -156,7 +156,7 @@ PrimeAdWidget::PrimeAdWidget(QWidget* parent) : QFrame(parent) {
   main_layout->addSpacing(30);
 
   QVector<QString> bullets = {tr("Remote access"), tr("24/7 LTE connectivity"), tr("1 year of drive storage"), tr("Turn-by-turn navigation")};
-  for (auto &b: bullets) {
+  for (auto &b : bullets) {
     const QString check = "<b><font color='#465BEA'>✓</font></b> ";
     QLabel *l = new QLabel(check + b);
     l->setAlignment(Qt::AlignLeft);
@@ -269,8 +269,7 @@ void SetupWidget::replyFinished(const QString &response, bool success) {
   }
 
   QJsonObject json = doc.object();
-  int prime_type = json["prime_type"].toInt();
-  prime_type = 2;
+  PrimeType prime_type = static_cast<PrimeType>(json["prime_type"].toInt());
   uiState()->setPrimeType(prime_type);
 
   if (!json["is_paired"].toBool()) {
