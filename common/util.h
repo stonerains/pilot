@@ -153,7 +153,7 @@ struct unique_fd {
 
 class FirstOrderFilter {
 public:
-  FirstOrderFilter(float x0, float ts, float dt) {
+  FirstOrderFilter(float x0, float ts, float dt, bool initialized = true) {
     k_ = (dt / ts) / (1.0 + dt / ts);
     x_ = x0;
   }
