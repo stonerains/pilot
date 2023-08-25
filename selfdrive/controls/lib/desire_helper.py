@@ -1,8 +1,8 @@
 from cereal import log
-from common.conversions import Conversions as CV
-from common.realtime import DT_MDL
-from common.params import Params
-from common.numpy_fast import interp
+from openpilot.common.conversions import Conversions as CV
+from openpilot.common.realtime import DT_MDL
+from openpilot.common.params import Params
+from openpilot.common.numpy_fast import interp
 
 AUTO_LCA_START_TIME = 0.5
 LaneChangeState = log.LateralPlan.LaneChangeState

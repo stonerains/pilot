@@ -3,8 +3,8 @@ import copy
 from selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager
 from selfdrive.controls.neokii.navi_controller import SpeedLimiter
 
-from selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager
-from selfdrive.controls.neokii.navi_controller import SpeedLimiter
+from openpilot.selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager
+from openpilot.selfdrive.controls.neokii.navi_controller import SpeedLimiter
 
 hyundai_checksum = crcmod.mkCrcFun(0x11D, initCrc=0xFD, rev=False, xorOut=0xdf)
 

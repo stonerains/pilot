@@ -3,9 +3,9 @@ import math
 
 from cereal import car
 from opendbc.can.parser import CANParser
-from selfdrive.car.interfaces import RadarInterfaceBase
-from selfdrive.car.hyundai.values import DBC, CANFD_CAR
-from selfdrive.controls.neokii.cruise_state_manager import is_radar_point
+from openpilot.selfdrive.car.interfaces import RadarInterfaceBase
+from openpilot.selfdrive.car.hyundai.values import DBC, CANFD_CAR
+from openpilot.selfdrive.controls.neokii.cruise_state_manager import is_radar_point
 
 RADAR_START_ADDR = 0x500
 RADAR_MSG_COUNT = 32

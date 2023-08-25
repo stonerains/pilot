@@ -1,6 +1,4 @@
-from selfdrive.car import dbc_dict
-from selfdrive.car.fw_query_definitions import FwQueryConfig, Request, p16
-from cereal import car
+from openpilot.selfdrive.car import dbc_dict
 
 Ecu = car.CarParams.Ecu
 def merge(A, B):

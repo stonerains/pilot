@@ -1,20 +1,21 @@
 from random import randint
 
 from cereal import car
-from common.conversions import Conversions as CV
-from common.numpy_fast import clip, interp
-from common.realtime import DT_CTRL
+from openpilot.common.conversions import Conversions as CV
+from openpilot.common.numpy_fast import clip, interp
+from openpilot.common.realtime import DT_CTRL
 from opendbc.can.packer import CANPacker
-from selfdrive.car import apply_driver_steer_torque_limits, common_fault_avoidance
-from selfdrive.car.hyundai import hyundaicanfd, hyundaican, hyundaican_community
-from selfdrive.car.hyundai.hyundaicanfd import CanBus
-from selfdrive.car.hyundai.values import HyundaiFlags, Buttons, CarControllerParams, CANFD_CAR, CAR, \
+from openpilot.selfdrive.car import apply_driver_steer_torque_limits, common_fault_avoidance
+from openpilot.selfdrive.car.hyundai import hyundaicanfd, hyundaican, hyundaican_community
+from openpilot.selfdrive.car.hyundai.hyundaicanfd import CanBus
+from openpilot.selfdrive.car.hyundai.values import HyundaiFlags, Buttons, CarControllerParams, CANFD_CAR, CAR, \
   LEGACY_SAFETY_MODE_CAR, CAN_GEARS
-from selfdrive.car.interfaces import ACCEL_MAX, ACCEL_MIN
-from selfdrive.car.hyundai.values_community import CAN_GEARS
-from selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager
-from selfdrive.controls.neokii.navi_controller import SpeedLimiter
-from selfdrive.controls.neokii.speed_controller import CREEP_SPEED
+from openpilot.selfdrive.car.interfaces import ACCEL_MAX, ACCEL_MIN
+from openpilot.selfdrive.controls.neokii.cruise_state_manager import CruiseStateManager
+from openpilot.selfdrive.controls.neokii.navi_controller import SpeedLimiter
+from openpilot.selfdrive.controls.neokii.speed_controller import CREEP_SPEED
+from openpilot.common.params import Params
+from openpilot.selfdrive.car.hyundai.values_community import CAN_GEARS
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 LongCtrlState = car.CarControl.Actuators.LongControlState
@@ -68,7 +69,6 @@ class CarController:
     self.last_lead_distance = 0
     self.resume_wait_timer = 0
 
-    from common.params import Params
     params = Params()
     self.ldws_opt = params.get_bool('IsLdwsCar')
     self.e2e_long = params.get_bool('ExperimentalMode')
@@ -210,14 +210,19 @@ class CarController:
             accel, stock_cam = self.get_stock_cam_accel(accel, aReqValue, CS.scc11)
 
         if self.CP.sccBus == 0:
+          use_fca = self.CP.flags & HyundaiFlags.USE_FCA.value
           can_sends.extend(hyundaican.create_acc_commands(self.packer, CC.enabled, accel, jerk, int(self.frame / 2),
                                                         hud_control.leadVisible, set_speed_in_units, stopping,
-                                                          CC.cruiseControl.override, CS, stock_cam))
+                                                          CC.cruiseControl.override, use_fca, CS, stock_cam))
         else:
           activated_hda = SpeedLimiter.instance().get_active()
           can_sends.extend(hyundaican_community.create_acc_commands(self.packer, CC.enabled, accel, jerk, int(self.frame / 2),
                                                           hud_control.leadVisible, set_speed_in_units, stopping,
                                                           CC.cruiseControl.override, CS, stock_cam, activated_hda))
+
+      # 20 Hz LFA MFA message
+      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value:
+        can_sends.append(hyundaican.create_lfahda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active()))
 
       # 5 Hz ACC options
       if self.frame % 20 == 0 and self.CP.openpilotLongitudinalControl:
@@ -231,9 +236,7 @@ class CarController:
         can_sends.append(hyundaican.create_frt_radar_opt(self.packer))
 
       # 20 Hz LFA MFA message
-      if self.frame % 5 == 0 and self.CP.flags & HyundaiFlags.SEND_LFA.value and not self.car_fingerprint in CAN_GEARS["has_hda"]:
-        can_sends.append(hyundaican.create_lfahda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active()))
-      elif self.frame % 5 == 0 and self.car_fingerprint in CAN_GEARS["has_hda"]:
+      if self.frame % 5 == 0 and self.car_fingerprint in CAN_GEARS["has_hda"]:
         can_sends.append(hyundaican_community.create_hda_mfc(self.packer, CC.enabled, SpeedLimiter.instance().get_active(), CS, hud_control.leftLaneVisible, hud_control.rightLaneVisible))
 
     CC.applyAccel = accel
