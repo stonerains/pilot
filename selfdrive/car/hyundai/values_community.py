@@ -1,4 +1,5 @@
 from openpilot.selfdrive.car import dbc_dict
+from cereal import car
 
 Ecu = car.CarParams.Ecu
 def merge(A, B):

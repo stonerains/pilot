@@ -31,46 +31,23 @@ def create_hda_mfc(packer, enabled, active, CS, left_lane, right_lane):
     ldwSysState += 2
 
   values["HDA_LdwSysState"] = ldwSysState
-
-  activeState = 0
-  iconWheelState = 0
-  iconState = 0
-  chimeState = 0
+  values["HDA_USM"] = 2
 
   if active > 1 and CS.out.cruiseState.enabled:
-    activeState = 1
-    iconWheelState = 1
-    iconState = 2
-    chimeState = 1
-  if active > 1 and not CS.out.cruiseState.enabled:
-    activeState = 0
-    iconWheelState = 0
-    iconState = 1
-    chimeState = 0
-
-  values["HDA_Active"] = activeState
-  values["HDA_Icon_Wheel"] = iconWheelState
-  values["HDA_Icon_State"] = iconState
-  values["HDA_Chime"] = chimeState
-  values["HDA_USM"] = 2
-  values["HDA_VSetReq"] = enabled
-
-
-  # if active > 1 and CS.out.cruiseState.enabled:
-  #   values["HDA_Active"] = 1
-  #   values["HDA_Icon_Wheel"] = 1
-  #   values["HDA_Icon_State"] = 2
-  #   values["HDA_Chime"] = 1
-  # elif active > 1 and not CS.out.cruiseState.enabled:
-  #   values["HDA_Active"] = 0
-  #   values["HDA_Icon_Wheel"] = 0
-  #   values["HDA_Icon_State"] = 1
-  #   values["HDA_Chime"] = 0
-  # else:
-  #   values["HDA_Active"] = 0
-  #   values["HDA_Icon_Wheel"] = 0
-  #   values["HDA_Icon_State"] = 0
-  #   values["HDA_Chime"] = 0
+    values["HDA_Active"] = 1
+    values["HDA_Icon_Wheel"] = 1
+    values["HDA_Icon_State"] = 2
+    values["HDA_Chime"] = 1
+  elif active > 1 and not CS.out.cruiseState.enabled:
+    values["HDA_Active"] = 0
+    values["HDA_Icon_Wheel"] = 0
+    values["HDA_Icon_State"] = 1
+    values["HDA_Chime"] = 0
+  else:
+    values["HDA_Active"] = 0
+    values["HDA_Icon_Wheel"] = 0
+    values["HDA_Icon_State"] = 0
+    values["HDA_Chime"] = 0
 
   return packer.make_can_msg("LFAHDA_MFC", 0, values)
 def create_acc_commands(packer, enabled, accel, upper_jerk, idx, lead_visible,

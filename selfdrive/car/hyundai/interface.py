@@ -7,13 +7,14 @@ from openpilot.selfdrive.car.hyundai.hyundaicanfd import CanBus
 from openpilot.selfdrive.car.hyundai import interface_community
 from openpilot.selfdrive.car.hyundai.values import HyundaiFlags, CAR, DBC, CANFD_CAR, CAMERA_SCC_CAR, CANFD_RADAR_SCC_CAR, \
                                                             EV_CAR, \
-  HYBRID_CAR, LEGACY_SAFETY_MODE_CAR, Buttons, CarControllerParams, CANFD_HDA2_CAR, CANFD_HDA2_ALT_GEARS, CAN_GEARS
+  HYBRID_CAR, LEGACY_SAFETY_MODE_CAR, Buttons, CarControllerParams, CANFD_HDA2_CAR, CANFD_HDA2_ALT_GEARS
 from openpilot.selfdrive.car.hyundai.radar_interface import RADAR_START_ADDR
 from openpilot.selfdrive.car import STD_CARGO_KG, create_button_event, get_safety_config
 from openpilot.selfdrive.car.interfaces import CarInterfaceBase
 from openpilot.selfdrive.car.disable_ecu import disable_ecu
 from openpilot.selfdrive.controls.neokii.cruise_state_manager import is_radar_point
 from openpilot.common.params import Params
+from openpilot.selfdrive.car.hyundai.values_community import CAN_GEARS
 
 Ecu = car.CarParams.Ecu
 ButtonType = car.CarState.ButtonEvent.Type
@@ -321,8 +322,8 @@ class CarInterface(CarInterfaceBase):
       ret.sccBus = 2 if (candidate in CAMERA_SCC_CAR or Params().get_bool('SccOnBus2')) else 0
       ret.hasAutoHold = 1151 in fingerprint[0]
       ret.hasLfaHda = 1157 in fingerprint[0]
-      ret.hasHda = 1157 in fingerprint[0] or candidate in CAN_GEARS['has_hda']
       ret.hasNav = 1348 in fingerprint[0]
+      ret.hasHda = 1157 in fingerprint[0] and candidate in CAN_GEARS['has_hda']
 
       if not ret.openpilotLongitudinalControl:
         ret.radarUnavailable = ret.sccBus == -1
