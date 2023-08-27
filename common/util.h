@@ -117,7 +117,7 @@ public:
 #ifndef __APPLE__
     std::signal(SIGPWR, (sighandler_t)set_do_exit);
 #endif
-  };
+  }
   inline static std::atomic<bool> power_failure = false;
   inline static std::atomic<int> signal = 0;
   inline operator bool() { return do_exit; }
@@ -178,7 +178,7 @@ private:
 template<typename T>
 void update_max_atomic(std::atomic<T>& max, T const& value) {
   T prev = max;
-  while(prev < value && !max.compare_exchange_weak(prev, value)) {}
+  while (prev < value && !max.compare_exchange_weak(prev, value)) {}
 }
 
 class LogState {

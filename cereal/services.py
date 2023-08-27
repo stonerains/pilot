@@ -119,6 +119,7 @@ def build_header():
     h += '  { "%s", {"%s", %d, %s, %d, %d}},\n' % \
          (k, k, v.port, should_log, v.frequency, decimation)
   h += "};\n"
+
   h += "#endif\n"
   return h
 
