@@ -360,14 +360,17 @@ class CarStateBase(ABC):
     R = 0.3
     A = [[1.0, DT_CTRL], [0.0, 1.0]]
     C = [[1.0, 0.0]]
-    x0=[[0.0], [0.0]]
+    x0 = [[0.0], [0.0]]
     K = get_kalman_gain(DT_CTRL, np.array(A), np.array(C), np.array(Q), R)
     self.v_ego_kf = KF1D(x0=x0, A=A, C=C[0], K=K)
 
-    self.v_ego_clu_kf = KF1D(x0=[[0.0], [0.0]],
-                         A=[[1.0, DT_CTRL], [0.0, 1.0]],
-                         C=[1.0, 0.0],
-                         K=[[0.17406039], [1.65925647]])
+    Q = [[0.0, 0.0], [0.0, 100.0]]
+    R = 0.3
+    A = [[1.0, DT_CTRL], [0.0, 1.0]]
+    C = [[1.0, 0.0]]
+    x0 = [[0.0], [0.0]]
+    K = get_kalman_gain(DT_CTRL, np.array(A), np.array(C), np.array(Q), R)
+    self.v_ego_clu_kf = KF1D(x0=x0, A=A, C=C[0], K=K)
 
   def update_speed_kf(self, v_ego_raw):
     if abs(v_ego_raw - self.v_ego_kf.x[0][0]) > 2.0:  # Prevent large accelerations when car starts at non zero speed
