@@ -2,7 +2,7 @@ from cereal import log
 from openpilot.common.conversions import Conversions as CV
 from openpilot.common.realtime import DT_MDL
 from openpilot.common.params import Params
-from openpilot.common.numpy_fast import interp
+import numpy as np
 
 AUTO_LCA_START_TIME = 0.5
 LaneChangeState = log.LateralPlan.LaneChangeState
@@ -47,14 +47,30 @@ class DesireHelper:
     self.auto_lane_change_enabled = Params().get_bool('AutoLaneChangeEnabled')
     self.auto_lane_change_timer = 0.0
     self.prev_torque_applied = False
+    self.prev_road_edge_stat = 0
+
+
+  def detect_road_edge(self, md):
+    # Calculate probabiities for detecting road edges and lane lines
+    left_road_edge_prob = np.clip(1.0 - md.roadEdgeStds[0], 0.0, 1.0)
+    left_lane_nearside_prob = md.laneLineProbs[0]
+    right_road_edge_prob = np.clip(1.0 - md.roadEdgeStds[1], 0.0, 1.0)
+    right_lane_nearside_prob = md.laneLineProbs[3]
+
+    # Check conditions for detecting road edges
+    road_edge_stat = 0
+    if right_road_edge_prob > 0.35 and right_lane_nearside_prob < 0.2 and left_lane_nearside_prob >= right_lane_nearside_prob:
+      road_edge_stat += 2 # right road edge
+    if left_road_edge_prob > 0.35 and left_lane_nearside_prob < 0.2 and right_lane_nearside_prob >= left_lane_nearside_prob:
+      road_edge_stat += 1 # left road edge
+
+    return road_edge_stat
 
   def update(self, carstate, lateral_active, lane_change_prob, md):
     v_ego = carstate.vEgo
     one_blinker = carstate.leftBlinker != carstate.rightBlinker
     below_lane_change_speed = v_ego < LANE_CHANGE_SPEED_MIN
-
-    left_road_edge = -interp(5.0, md.roadEdges[0].x, md.roadEdges[0].y)
-    right_road_edge = interp(5.0, md.roadEdges[1].x, md.roadEdges[1].y)
+    road_edge_stat = self.detect_road_edge(md)
 
     if (not lateral_active) or (self.lane_change_timer > LANE_CHANGE_TIME_MAX) or (not one_blinker) or (not self.lane_change_enabled):
       self.lane_change_state = LaneChangeState.off
@@ -85,8 +101,8 @@ class DesireHelper:
         blindspot_detected = ((carstate.leftBlindspot and self.lane_change_direction == LaneChangeDirection.left) or
                               (carstate.rightBlindspot and self.lane_change_direction == LaneChangeDirection.right))
 
-        road_edge_detected = (((left_road_edge < 3.5) and self.lane_change_direction == LaneChangeDirection.left) or
-                              ((right_road_edge < 3.5) and self.lane_change_direction == LaneChangeDirection.right))
+        road_edge_detected = (((road_edge_stat & 1 != 0) and self.lane_change_direction == LaneChangeDirection.left) or
+                              ((road_edge_stat & 2 != 0) and self.lane_change_direction == LaneChangeDirection.right))
 
         if not one_blinker or below_lane_change_speed:
           self.lane_change_state = LaneChangeState.off
