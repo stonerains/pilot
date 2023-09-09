@@ -49,7 +49,7 @@ CRUISE_GAP_BP = [1., 2., 3., 4.]
 CRUISE_GAP_V = [1.0, 1.2, 1.5, 1.8]
 CRUISE_GAP_E2E_V = [1.2, 1.5, 2.0, 2.5]
 
-DIFF_RADAR_VISION = 1.4
+DIFF_RADAR_VISION = 1.0
 
 
 # Fewer timestamps don't hurt performance and lead to
@@ -61,7 +61,7 @@ T_IDXS_LST = [index_function(idx, max_val=MAX_T, max_idx=N) for idx in range(N+1
 T_IDXS = np.array(T_IDXS_LST)
 FCW_IDXS = T_IDXS < 5.0
 T_DIFFS = np.diff(T_IDXS, prepend=[0.])
-COMFORT_BRAKE = 2.5
+COMFORT_BRAKE = 2.0
 STOP_DISTANCE = 5.5
 
 def get_jerk_factor(personality=log.LongitudinalPersonality.standard):
