@@ -91,7 +91,7 @@ class LateralPlanner:
 
     self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,
                              LATERAL_ACCEL_COST, LATERAL_JERK_COST,
-                             interp(self.v_ego, [1., 20.], [STEERING_RATE_COST, STEERING_RATE_COST/3.]))
+                             STEERING_RATE_COST)
 
     y_pts = d_path_xyz[:LAT_MPC_N+1, 1]
     heading_pts = self.plan_yaw[:LAT_MPC_N+1]
