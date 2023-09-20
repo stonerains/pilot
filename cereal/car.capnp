@@ -117,7 +117,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     locationdPermanentError @118;
     paramsdTemporaryError @50;
     paramsdPermanentError @119;
-
+    
     slowingDownSpeed @120;
     slowingDownSpeedSound @121;
     cruiseOn @122;
