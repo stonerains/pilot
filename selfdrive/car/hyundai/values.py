@@ -2254,6 +2254,21 @@ FW_VERSIONS = {
       b'\xf1\x00GL3_ RDR -----      1.00 1.02 99110-L8000         ',
     ],
   },
+  CAR.GENESIS_EQ900: {
+    (Ecu.fwdCamera, 0x7c4, None): [
+      b'\xf1\x00HI  LKAS AT USA LHD 1.00 1.00 95895-D2020 160302',
+      b'\xf1\x00HI  LKAS AT KOR LHD 1.00 1.00 95895-D2020 160302',
+    ],
+    (Ecu.fwdRadar, 0x7d0, None): [
+      b'\xf1\x00HI__ SCC F-CUP      1.00 1.01 96400-D2100         ',
+    ],
+    (Ecu.engine, 0x7e0, None): [
+      b'\xf1\x810000000000\x00',
+    ],
+    (Ecu.transmission, 0x7e1, None): [
+      b'\xf1\x87VDGMD15866192DD3x\x88x\x89wuFvvfUf\x88vWwgwwwvfVgx\x87o\xff\xbc^\xf1\x81E14\x00\x00\x00\x00\x00\x00\x00\xf1\x00bcshcm49  E14\x00\x00\x00\x00\x00\x00\x00SHI0G50NB1tc5\xb7',
+    ],
+  },
 }
 
 CHECKSUM = {
@@ -2268,6 +2283,7 @@ CAN_GEARS = {
   "use_cluster_gears": {CAR.ELANTRA, CAR.KONA, CAR.ELANTRA_GT_I30, CAR.GRANDEUR_IG, CAR.K7},
   "use_tcu_gears": {CAR.KIA_OPTIMA_G4, CAR.KIA_OPTIMA_G4_FL, CAR.SONATA_LF, CAR.VELOSTER, CAR.TUCSON, CAR.K5},
   "send_mdps12": {CAR.GENESIS_G90, CAR.GENESIS_G90_2019, CAR.K9},
+  "has_hda": {CAR.GRANDEUR_IG, CAR.GENESIS_EQ900, CAR.GENESIS_EQ900_L},
 }
 
 CANFD_CAR = {CAR.KIA_EV6, CAR.IONIQ_5, CAR.IONIQ_6, CAR.TUCSON_4TH_GEN, CAR.TUCSON_HYBRID_4TH_GEN, CAR.KIA_SPORTAGE_HYBRID_5TH_GEN,

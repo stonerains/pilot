@@ -15,7 +15,6 @@ from openpilot.selfdrive.controls.neokii.cruise_state_manager import CruiseState
 from openpilot.selfdrive.controls.neokii.navi_controller import SpeedLimiter
 from openpilot.selfdrive.controls.neokii.speed_controller import CREEP_SPEED
 from openpilot.common.params import Params
-from openpilot.selfdrive.car.hyundai.values_community import CAN_GEARS
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 LongCtrlState = car.CarControl.Actuators.LongControlState

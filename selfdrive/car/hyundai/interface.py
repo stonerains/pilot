@@ -6,14 +6,13 @@ from openpilot.selfdrive.car.hyundai.hyundaicanfd import CanBus
 from openpilot.selfdrive.car.hyundai import interface_community
 from openpilot.selfdrive.car.hyundai.values import HyundaiFlags, CAR, DBC, CANFD_CAR, CAMERA_SCC_CAR, CANFD_RADAR_SCC_CAR, \
                                                             EV_CAR, \
-  HYBRID_CAR, LEGACY_SAFETY_MODE_CAR, Buttons, CarControllerParams, CANFD_HDA2_CAR, CANFD_HDA2_ALT_GEARS
+  HYBRID_CAR, LEGACY_SAFETY_MODE_CAR, Buttons, CarControllerParams, CANFD_HDA2_CAR, CANFD_HDA2_ALT_GEARS, CAN_GEARS
 from openpilot.selfdrive.car.hyundai.radar_interface import RADAR_START_ADDR
 from openpilot.selfdrive.car import create_button_events, get_safety_config
 from openpilot.selfdrive.car.interfaces import CarInterfaceBase
 from openpilot.selfdrive.car.disable_ecu import disable_ecu
 from openpilot.selfdrive.controls.neokii.cruise_state_manager import is_radar_point
 from openpilot.common.params import Params
-from openpilot.selfdrive.car.hyundai.values_community import CAN_GEARS
 
 Ecu = car.CarParams.Ecu
 ButtonType = car.CarState.ButtonEvent.Type
