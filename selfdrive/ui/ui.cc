@@ -274,6 +274,7 @@ void UIState::update() {
 }
 
 void UIState::setPrimeType(PrimeType type) {
+  type = PrimeType::LITE;
   if (type != prime_type) {
     bool prev_prime = hasPrime();
 
