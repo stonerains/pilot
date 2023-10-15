@@ -98,7 +98,7 @@ class TestSensord(unittest.TestCase):
     os.environ["LSM_SELF_TEST"] = "1"
 
     # read initial sensor values every test case can use
-    os.system("pkill -f ./_sensord")
+    os.system("pkill -f ./sensord")
     try:
       managed_processes["sensord"].start()
       time.sleep(3)
