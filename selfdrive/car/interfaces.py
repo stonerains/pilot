@@ -253,8 +253,8 @@ class CarInterfaceBase(ABC):
     # if cs_out.gearShifter != GearShifter.drive and (extra_gears is None or
     #   cs_out.gearShifter not in extra_gears):
     #  events.add(EventName.wrongGear)
-    if cs_out.gearShifter == GearShifter.reverse:
-      events.add(EventName.reverseGear)
+    # if cs_out.gearShifter == GearShifter.reverse:
+    #   events.add(EventName.reverseGear)
     if not cs_out.cruiseState.available:
       events.add(EventName.wrongCarMode)
     if cs_out.espDisabled:
@@ -267,10 +267,10 @@ class CarInterfaceBase(ABC):
       events.add(EventName.speedTooHigh)
     if cs_out.cruiseState.nonAdaptive:
       events.add(EventName.wrongCruiseMode)
-    #if cs_out.brakeHoldActive and self.CP.openpilotLongitudinalControl:
+    # if cs_out.brakeHoldActive and self.CP.openpilotLongitudinalControl:
     #  events.add(EventName.brakeHold)
-    if cs_out.parkingBrake:
-      events.add(EventName.parkBrake)
+    # if cs_out.parkingBrake:
+    #   events.add(EventName.parkBrake)
     if cs_out.accFaulted:
       events.add(EventName.accFaulted)
     if cs_out.steeringPressed:
