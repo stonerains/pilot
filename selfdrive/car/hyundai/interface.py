@@ -23,17 +23,6 @@ BUTTONS_DICT = {Buttons.RES_ACCEL: ButtonType.accelCruise, Buttons.SET_DECEL: Bu
 
 
 class CarInterface(CarInterfaceBase):
-
-  @staticmethod
-  def get_pid_accel_limits(CP, current_speed, cruise_speed):
-
-    v_current_kph = current_speed * CV.MS_TO_KPH
-
-    gas_max_bp = [10., 20., 40., 70., 120., 150.]
-    gas_max_v = [1.1, 0.9, 0.8, 0.55, 0.13, 0.1]
-
-    return CarControllerParams.ACCEL_MIN, interp(v_current_kph, gas_max_bp, gas_max_v)
-
   @staticmethod
   def _get_params(ret, candidate, fingerprint, car_fw, experimental_long, docs):
     ret.carName = "hyundai"
