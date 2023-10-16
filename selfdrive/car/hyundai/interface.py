@@ -274,10 +274,10 @@ class CarInterface(CarInterfaceBase):
       # ret.longitudinalTuning.kpV = [1.2, 0.55]
       # ret.longitudinalTuning.kiBP = [0., 150. * CV.KPH_TO_MS]
       # ret.longitudinalTuning.kiV = [0.75, 0.025]
-      ret.longitudinalTuning.kpV = [0.45]
-      ret.longitudinalTuning.kiV = [0.0]
+      ret.longitudinalTuning.kpV = [0.5]
+      ret.longitudinalTuning.kiV = [0.05]
 
-      ret.steerActuatorDelay = 0.1
+      ret.steerActuatorDelay = 0.5
       ret.steerLimitTimer = 2.0
 
       ret.experimentalLongitudinalAvailable = True #candidate not in (LEGACY_SAFETY_MODE_CAR)
@@ -287,11 +287,11 @@ class CarInterface(CarInterfaceBase):
 
     ret.stoppingControl = True
     ret.startingState = True
-    ret.vEgoStarting = 0.3
-    ret.vEgoStopping = 0.3
+    ret.vEgoStarting = 0.2
+    ret.vEgoStopping = 0.5
     ret.startAccel = 1.0
-    ret.longitudinalActuatorDelayLowerBound = 0.2
-    ret.longitudinalActuatorDelayUpperBound = 0.5
+    ret.longitudinalActuatorDelayLowerBound = 0.25
+    ret.longitudinalActuatorDelayUpperBound = 0.4
 
     # *** feature detection ***
     if candidate in CANFD_CAR:
