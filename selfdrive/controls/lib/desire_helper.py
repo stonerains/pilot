@@ -4,12 +4,12 @@ from openpilot.common.realtime import DT_MDL
 from openpilot.common.params import Params
 import numpy as np
 
-AUTO_LCA_START_TIME = 0.5
+AUTO_LCA_START_TIME = 1.0
 LaneChangeState = log.LateralPlan.LaneChangeState
 LaneChangeDirection = log.LateralPlan.LaneChangeDirection
 
-LANE_CHANGE_SPEED_MIN = 30 * CV.KPH_TO_MS
-LANE_CHANGE_TIME_MAX = 12.
+LANE_CHANGE_SPEED_MIN = 40 * CV.KPH_TO_MS
+LANE_CHANGE_TIME_MAX = 10.
 
 DESIRES = {
   LaneChangeDirection.none: {

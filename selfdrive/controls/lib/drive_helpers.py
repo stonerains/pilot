@@ -173,7 +173,7 @@ def get_lag_adjusted_curvature(CP, v_ego, psis, curvatures, curvature_rates):
   v_ego = max(MIN_SPEED, v_ego)
 
   # TODO this needs more thought, use .2s extra for now to estimate other delays
-  delay = ntune_common_get('steerActuatorDelay') + .05
+  delay = ntune_common_get('steerActuatorDelay') + .2
   path_factor = ntune_common_get('pathFactor')
 
   # MPC can plan to turn the wheel and turn back before t_delay. This means
