@@ -1476,7 +1476,7 @@ BO_ 905 SCC14: 8 SCC
 
 BO_ 1157 LFAHDA_MFC: 4 XXX
  SG_ HDA_USM : 0|2@1+ (1,0) [0|3] "" XXX
- SG_ HDA_Active : 2|1@1+ (1,0) [0|1] "" XXX
+ SG_ HDA_Active : 25|1@1+ (1,0) [0|3] "" XXX
  SG_ HDA_Icon_State : 3|2@1+ (1,0) [0|3] "" XXX
  SG_ HDA_Chime : 7|1@1+ (1,0) [0|1] "" XXX
  SG_ HDA_VSetReq : 8|8@1+ (1,0) [0|255] "km/h" XXX
