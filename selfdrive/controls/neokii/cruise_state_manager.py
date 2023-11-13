@@ -65,9 +65,6 @@ class CruiseStateManager:
 
     self.prev_brake_pressed = False
 
-    # CRZ AUTO-SET by Tenesi
-    self.cruise_auto = False
-
     self.is_metric = Params().get_bool('IsMetric')
     self.cruise_state_control = Params().get_bool('CruiseStateControl')
 
@@ -110,12 +107,6 @@ class CruiseStateManager:
     self.prev_brake_pressed = CS.brakePressed
 
     CS.cruiseState.available = self.available
-
-    # CRZ AUTO-SET by Tenesi
-    ascc_auto_set = (CS.vEgoCluster * CV.MS_TO_KPH > 20) and CS.gasPressed
-    # 1회 수동 크루즈 인게이지 후 가속페달 작동시... 앞차가 있는 경우에 자동 크루즈셋및 시속 30이상시 이전 속도로 셋한다..
-    if ascc_auto_set and self.cruise_auto and not self.enabled: # 캔슬버튼을 누르지 않았다면...초기 false상태에서 오토셋은 작동한다..
-      self.enabled = True
 
     if cruise_state_control:
       CS.cruiseState.enabled = self.enabled
@@ -171,10 +162,10 @@ class CruiseStateManager:
         elif btn == ButtonType.decelCruise:
           v_cruise_kph -= v_cruise_delta - -v_cruise_kph % v_cruise_delta
     else:
+
       if not self.btn_long_pressed:
         if btn == ButtonType.decelCruise and not self.enabled:
           self.enabled = True
-          self.cruise_auto = True 	# CRZ AUTO-SET by Tenesi
           v_cruise_kph = CS.vEgoCluster * CV.MS_TO_KPH
           if CS.vEgoCluster < 0.1:
             v_cruise_kph = clip(round(v_cruise_kph, 1), V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)
@@ -182,7 +173,6 @@ class CruiseStateManager:
             v_cruise_kph = clip(round(v_cruise_kph, 1), V_CRUISE_MIN_CRUISE_STATE, V_CRUISE_MAX)
         elif btn == ButtonType.accelCruise and not self.enabled:
           self.enabled = True
-          self.cruise_auto = True 	# CRZ AUTO-SET by Tenesi
           v_cruise_kph = clip(round(self.speed * CV.MS_TO_KPH, 1), V_CRUISE_ENABLE_MIN, V_CRUISE_MAX)
           v_cruise_kph = clip(v_cruise_kph, round(CS.vEgoCluster * CV.MS_TO_KPH, 1), V_CRUISE_MAX)
 
@@ -194,7 +184,6 @@ class CruiseStateManager:
 
     if btn == ButtonType.cancel:
       self.enabled = False
-      self.cruise_auto = False # CRZ AUTO-SET by Tenesi
 
     v_cruise_kph = clip(round(v_cruise_kph, 1), V_CRUISE_MIN_CRUISE_STATE, V_CRUISE_MAX)
     self.speed = v_cruise_kph * CV.KPH_TO_MS
