@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 import signal
 import numpy as np
 from collections import deque, defaultdict
@@ -252,8 +253,6 @@ def main():
 
   if "REPLAY" not in os.environ:
     signal.signal(signal.SIGINT, partial(cache_points_onexit, "LiveTorqueParameters", estimator))
-from functools import partial
-from openpilot.selfdrive.locationd.helpers import PointBuckets, ParameterEstimator, cache_points_onexit
 
   while True:
     sm.update()
