@@ -15,7 +15,7 @@ from openpilot.selfdrive.controls.ntune import ntune_common_get
 from openpilot.selfdrive.controls.radard import RADAR_TO_CAMERA
 
 SYNC_MARGIN = 3.
-CREEP_SPEED = 2.
+CREEP_SPEED = 2.3
 
 
 MIN_CURVE_SPEED = 32. * CV.KPH_TO_MS
