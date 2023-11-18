@@ -228,6 +228,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"SoftRestartTriggered", CLEAR_ON_MANAGER_START},
 
     {"ShowTurnSignal", PERSISTENT}, //boxkon
+    {"SmoothBraking", PERSISTENT}, // frog
 };
 
 } // namespace

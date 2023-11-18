@@ -362,13 +362,19 @@ class LongitudinalMpc:
     self.cruise_min_a = min_a
     self.max_a = max_a
 
-  def update(self, carstate, radarstate, v_cruise, x, v, a, j, personality=log.LongitudinalPersonality.standard):
+  def update(self, carstate, radarstate, v_cruise, x, v, a, j, smoother_braking, personality=log.LongitudinalPersonality.standard):
     #t_follow = get_T_FOLLOW(personality)
     v_ego = self.x0[1]
     self.status = radarstate.leadOne.status or radarstate.leadTwo.status
 
     lead_xv_0 = self.process_lead(radarstate.leadOne)
     lead_xv_1 = self.process_lead(radarstate.leadTwo)
+
+    # Offset by FrogAi for FrogPilot for a more natural approach to a slower lead
+    if smoother_braking:
+      distance_factor = np.maximum(1, lead_xv_0[:,0] - (lead_xv_0[:,1] * self.t_follow))
+      t_follow_offset = np.clip((v_ego - lead_xv_0[:,1]) - COMFORT_BRAKE, 1, distance_factor)
+      self.t_follow = self.t_follow / t_follow_offset
 
     # neokii
     gapAdjust = carstate.cruiseState.gapAdjust
