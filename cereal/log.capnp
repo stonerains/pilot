@@ -1097,8 +1097,8 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   }
 
   # for ACL(boxkon)
-  autoLaneChangeEnabled @34 :Bool;
-  autoLaneChangeTimer @35 :Int8;
+  autoLaneChangeEnabled @35 :Bool;
+  autoLaneChangeTimer @36 :Int8;
 
   enum Desire {
     none @0;
