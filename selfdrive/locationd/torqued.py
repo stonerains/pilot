@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-import sys
 import signal
 import numpy as np
 from collections import deque, defaultdict
