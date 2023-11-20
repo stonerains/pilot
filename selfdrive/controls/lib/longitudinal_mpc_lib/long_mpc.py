@@ -61,8 +61,8 @@ T_IDXS_LST = [index_function(idx, max_val=MAX_T, max_idx=N) for idx in range(N+1
 T_IDXS = np.array(T_IDXS_LST)
 FCW_IDXS = T_IDXS < 5.0
 T_DIFFS = np.diff(T_IDXS, prepend=[0.])
-COMFORT_BRAKE = 1.5
-STOP_DISTANCE = 4.5
+COMFORT_BRAKE = 2.0
+STOP_DISTANCE = 5.0
 
 def get_jerk_factor(personality=log.LongitudinalPersonality.standard):
   if personality==log.LongitudinalPersonality.relaxed:
@@ -91,7 +91,7 @@ def get_T_FOLLOW_Factor(personality=log.LongitudinalPersonality.standard):
   elif personality==log.LongitudinalPersonality.standard:
     return 1.0
   elif personality==log.LongitudinalPersonality.aggressive:
-    return 0.85
+    return 0.8
   else:
     raise NotImplementedError("Longitudinal personality not supported")
 
@@ -372,6 +372,12 @@ class LongitudinalMpc:
     cruise_gap = int(clip(gapAdjust, 1., 4.)) if gapAdjust > 0 else 4
     self.t_follow = interp(float(cruise_gap), CRUISE_GAP_BP, CRUISE_GAP_V if self.mode == 'acc' else CRUISE_GAP_E2E_V)
     self.t_follow *= get_T_FOLLOW_Factor(personality)
+
+    # Offset by FrogAi for FrogPilot for a more natural approach to a slower lead
+    if smoother_braking:
+      distance_factor = np.maximum(1, lead_xv_0[:,0] - (lead_xv_0[:,1] * self.t_follow))
+      t_follow_offset = np.clip((v_ego - lead_xv_0[:,1]) - COMFORT_BRAKE, 1, distance_factor)
+      self.t_follow = self.t_follow / t_follow_offset
 
     # To estimate a safe distance from a moving lead, we calculate how much stopping
     # distance that lead needs as a minimum. We can add that to the current distance
