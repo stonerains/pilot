@@ -209,24 +209,21 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"VisionRadarToggle", PERSISTENT},
     {"WheeledBody", PERSISTENT},
 
-    {"MapboxToken", PERSISTENT},
-
     // Community
+    {"MapboxToken", PERSISTENT},
     {"SupportedCars", PERSISTENT},
     {"SelectedCar", PERSISTENT},
     {"UseLanelines", PERSISTENT},
     {"SccOnBus2", PERSISTENT},
     {"CruiseStateControl", PERSISTENT},
     {"SccGapAdjust", PERSISTENT},
-
     {"IsLdwsCar", PERSISTENT},
     {"LaneChangeEnabled", PERSISTENT},
     {"AutoLaneChangeEnabled", PERSISTENT},
     {"HapticFeedbackWhenSpeedCamera", PERSISTENT},
     {"UseExternalNaviRoutes", PERSISTENT},
     {"ShowDebugMessage", PERSISTENT},
-
-    {"SoftRestartTriggered", CLEAR_ON_MANAGER_START},
+    {"EnableLogging", PERSISTENT},
 
     {"ShowTurnSignal", PERSISTENT}, //boxkon
     {"SmoothBraking", PERSISTENT}, // frog
