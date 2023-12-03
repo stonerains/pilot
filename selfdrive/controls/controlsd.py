@@ -641,7 +641,7 @@ class Controls:
                                                                                        lat_plan.curvatureRates,
                                                                                        lat_plan.distances)
       actuators.steer, actuators.steeringAngleDeg, lac_log = self.LaC.update(CC.latActive, CS, self.VM, lp,
-                                                                             self.last_actuators, self.steer_limited, self.desired_curvature,
+                                                                             self.steer_limited, self.desired_curvature,
                                                                              self.desired_curvature_rate, self.sm['liveLocationKalman'])
       actuators.curvature = self.desired_curvature
     else:
