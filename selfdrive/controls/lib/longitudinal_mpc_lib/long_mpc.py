@@ -5,7 +5,7 @@ import numpy as np
 from cereal import log
 from openpilot.common.numpy_fast import clip, interp
 from openpilot.selfdrive.controls.ntune import ntune_common_get
-from openpilot.system.swaglog import cloudlog
+from openpilot.common.swaglog import cloudlog
 # WARNING: imports outside of constants will not trigger a rebuild
 from openpilot.selfdrive.modeld.constants import index_function
 from openpilot.selfdrive.car.interfaces import ACCEL_MIN
