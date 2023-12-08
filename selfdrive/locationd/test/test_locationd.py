@@ -60,7 +60,6 @@ class TestLocationdProc(unittest.TestCase):
       msg.cameraOdometry.trans = [0.0, 0.0, 0.0]
       msg.cameraOdometry.transStd = [0.0, 0.0, 0.0]
     msg.logMonoTime = t
-    msg.valid = True
     return msg
 
   def test_params_gps(self):
