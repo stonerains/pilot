@@ -43,7 +43,6 @@ sound_list: Dict[int, Tuple[str, Optional[int], float]] = {
   AudibleAlert.slowingDownSpeed: ("slowing_down_speed.wav", 1, MAX_VOLUME),
   AudibleAlert.cruiseOn: ("cruise_on.wav", 1, MAX_VOLUME),
   AudibleAlert.cruiseOff: ("cruise_off.wav", 1, MAX_VOLUME),
-
 }
 
 def check_controls_timeout_alert(sm):

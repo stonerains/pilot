@@ -445,7 +445,7 @@ struct CarControl {
       cruiseOn @10;
       cruiseOff @11;
 
-      ding @12; 
+      ding @12;
     }
   }
 

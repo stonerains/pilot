@@ -4,13 +4,13 @@ import time
 import numpy as np
 from cereal import log
 from openpilot.common.numpy_fast import clip, interp
-from openpilot.selfdrive.controls.ntune import ntune_common_get
 from openpilot.common.swaglog import cloudlog
 # WARNING: imports outside of constants will not trigger a rebuild
 from openpilot.selfdrive.modeld.constants import index_function
 from openpilot.selfdrive.car.interfaces import ACCEL_MIN
 from openpilot.selfdrive.controls.radard import _LEAD_ACCEL_TAU
 from openpilot.common.conversions import Conversions as CV
+from openpilot.selfdrive.controls.ntune import ntune_common_get
 
 if __name__ == '__main__':  # generating code
   from openpilot.third_party.acados.acados_template import AcadosModel, AcadosOcp, AcadosOcpSolver
@@ -88,11 +88,11 @@ def get_T_FOLLOW(personality=log.LongitudinalPersonality.standard):
 
 def get_T_FOLLOW_Factor(personality=log.LongitudinalPersonality.standard):
   if personality==log.LongitudinalPersonality.relaxed:
-    return 1.2
+    return 1.25
   elif personality==log.LongitudinalPersonality.standard:
     return 1.0
   elif personality==log.LongitudinalPersonality.aggressive:
-    return 0.8
+    return 0.85
   else:
     raise NotImplementedError("Longitudinal personality not supported")
 
@@ -377,12 +377,6 @@ class LongitudinalMpc:
     self.t_follow = interp(float(cruise_gap), CRUISE_GAP_BP, CRUISE_GAP_V if self.mode == 'acc' else CRUISE_GAP_E2E_V)
     self.t_follow *= get_T_FOLLOW_Factor(personality)
 
-    # Offset by FrogAi for FrogPilot for a more natural approach to a slower lead
-    if smoother_braking:
-      distance_factor = np.maximum(1, lead_xv_0[:,0] - (lead_xv_0[:,1] * self.t_follow))
-      t_follow_offset = np.clip((v_ego - lead_xv_0[:,1]) - COMFORT_BRAKE, 1, distance_factor)
-      self.t_follow = self.t_follow / t_follow_offset
-
     # To estimate a safe distance from a moving lead, we calculate how much stopping
     # distance that lead needs as a minimum. We can add that to the current distance
     # and then treat that as a stopped car/obstacle at this new distance.
@@ -395,6 +389,7 @@ class LongitudinalMpc:
     # Update in ACC mode or ACC/e2e blend
     if self.mode == 'acc':
       self.params[:,5] = LEAD_DANGER_FACTOR
+
       # Fake an obstacle for cruise, this ensures smooth acceleration to set speed
       # when the leads are no factor.
       v_lower = v_ego + (T_IDXS * self.cruise_min_a * 1.05)

@@ -63,7 +63,7 @@ class Mic:
     self.sound_pressure_level_weighted = 0
 
   def update(self):
-    msg = messaging.new_message('microphone')
+    msg = messaging.new_message('microphone', valid=True)
     msg.microphone.soundPressure = float(self.sound_pressure)
     msg.microphone.soundPressureWeighted = float(self.sound_pressure_weighted)
 
