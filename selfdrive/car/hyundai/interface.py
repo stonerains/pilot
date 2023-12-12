@@ -26,8 +26,11 @@ class CarInterface(CarInterfaceBase):
   @staticmethod
   def get_pid_accel_limits(CP, current_speed, cruise_speed):
     v_current_kph = current_speed * CV.MS_TO_KPH
-    gas_max_bp = [10., 20., 50., 70., 130., 150.]
-    gas_max_v = [ACCEL_MAX, 1.5, 1.0, 0.6, 0.2, 0.1]
+#    gas_max_bp = [10., 20., 50., 70., 130., 150.]
+#    gas_max_v = [ACCEL_MAX, 1.5, 1.0, 0.6, 0.2, 0.1]
+    gas_max_bp = [0., 5., 10., 30., 45., 70., 100., 130.]
+    gas_max_v = [CarControllerParams.ACCEL_MAX, 0.9, 1.1, 0.92, 0.615, 0.42, 0.25, 0.1]
+    
     return ACCEL_MIN, interp(v_current_kph, gas_max_bp, gas_max_v)
   
   @staticmethod
@@ -284,8 +287,12 @@ class CarInterface(CarInterfaceBase):
       # ret.longitudinalTuning.kiV = [0.1, 0.05]
       # ret.stoppingDecelRate = 0.3
 
-      ret.longitudinalTuning.kpV = [0.5]
-      ret.longitudinalTuning.kiV = [0.0]
+#      ret.longitudinalTuning.kpV = [0.5]
+#      ret.longitudinalTuning.kiV = [0.0]
+      ret.longitudinalTuning.kpBP = [0, 10. * CV.KPH_TO_MS, 20. * CV.KPH_TO_MS, 40. * CV.KPH_TO_MS, 70. * CV.KPH_TO_MS, 100. * CV.KPH_TO_MS, 130. * CV.KPH_TO_MS]
+      ret.longitudinalTuning.kpV = [0.674, 0.665, 0.655, 0.5, 0.38, 0.32, 0.20]
+      ret.longitudinalTuning.kiBP = [0., 30. * CV.KPH_TO_MS, 60. * CV.KPH_TO_MS]
+      ret.longitudinalTuning.kiV = [0.014, 0.015, 0.0155]
 
       ret.stoppingDecelRate = 0.3
       ret.steerActuatorDelay = 0.1
@@ -301,9 +308,11 @@ class CarInterface(CarInterfaceBase):
     ret.vEgoStarting = 0.1
     # ret.vEgoStopping = 0.3
     ret.startAccel = 1.0
-    ret.longitudinalActuatorDelayLowerBound = 0.5
-    ret.longitudinalActuatorDelayUpperBound = 0.5
-
+#    ret.longitudinalActuatorDelayLowerBound = 0.5
+#    ret.longitudinalActuatorDelayUpperBound = 0.5
+    ret.longitudinalActuatorDelayLowerBound = 0.178
+    ret.longitudinalActuatorDelayUpperBound = 0.188
+    
     # *** feature detection ***
     if candidate in CANFD_CAR:
       ret.enableBsm = 0x1e5 in fingerprint[CAN.ECAN]
