@@ -377,6 +377,9 @@ class LongitudinalMpc:
     self.t_follow = interp(float(cruise_gap), CRUISE_GAP_BP, CRUISE_GAP_V if self.mode == 'acc' else CRUISE_GAP_E2E_V)
     self.t_follow *= get_T_FOLLOW_Factor(personality)
 
+    if cruise_gap == 4:
+      self.t_follow *= interp(v_ego * 3.6, [10, 40, 70, 110], [1.14, 1.2, 1.35, 1.88])
+      
     # To estimate a safe distance from a moving lead, we calculate how much stopping
     # distance that lead needs as a minimum. We can add that to the current distance
     # and then treat that as a stopped car/obstacle at this new distance.
